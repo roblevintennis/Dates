@@ -17,6 +17,8 @@
 			this.date = null;
 			this.element = element;
 			this.options = $.extend( {}, defaults, options );
+			this.prev = this.options.prev || '‹';
+			this.nxt = this.options.nxt || '›';
 			this._defaults = defaults;
 			this._currentMode = this._defaults.modes[2];//month
 			this._name = dateFillName;
@@ -24,15 +26,7 @@
 		}
 
 		DateFill.prototype = {
-			init: function () {
-				// Place initialization logic here
-				// You already have access to the DOM element and
-				// the options via the instance, e.g. this.element
-				// and this.options
-				// you can add more functions like the one below and
-				// call them like so: this.yourOtherFunction(this.element, this.options).
-				console.log("xD");
-			},
+			init: function () {},
 			getCurrentMode: function () {
 				return this._currentMode;
 			},
@@ -60,6 +54,28 @@
 	        this.date = new Date(date);
 	      }
 	      return date;
+	    },
+	    getDaysOfWeek: function(typeKey) {
+	    	typeKey = typeKey ? typeKey : 'daysShort';
+				var sDays = this._defaults.dateLabels[typeKey];
+				var days = '<tr>';
+				for (var i = 0; i < sDays.length; i++) {
+					days += '<th class="dow">' + sDays[i] + '</th>';
+				};
+				return days;
+	    },
+	    getTitle: function(formattedTitle) {
+	    	var html = '<tr>' +
+		      '<th class="prev">'+this.prev+'</th>' +
+		      '<th colspan="5" class="switch">'+ formattedTitle + '</th>' +
+		      '<th class="next">'+this.nxt+'</th>' +
+		    '</tr>';
+	    },
+	    getHeader: function(format) {
+	    	//TODO: WE'LL NEED TO UPDATE ALL THIS BASED ON CURRENT MODE E.G. DAY||WEEK||MONTH ETC.
+	    	format = format ? format : 'MMMM YYYY';
+	    	var formatted = moment(this.date).format("MMMM YYYY");
+	    	return '<thead>' + this.getTitle(formatted) + this.getDaysOfWeek() + '</thead>';
 	    },
 			isLeapYear: function (yr) { //ref: http://www.timeanddate.com/date/leapyear.html
 				var isLeap = yr % 4 === 0;

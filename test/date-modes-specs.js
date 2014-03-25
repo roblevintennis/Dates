@@ -72,18 +72,18 @@ test("can set a date", function() {
 });
 test("setting date by string without moment.js throws error", function() {
   var oldMoment = window.moment ? window.moment : null;
-  debugger; 
   window.moment = null;
   throws(function () {this.plugin.setDate('January 03, 2000'); },
     ReferenceError,
     "Must throw ReferenceError if date string but no momentjs.");
   window.moment = oldMoment;
 });
-// test("can get a wrap a header", function() {
-//   //set the mode to week
-//   this.plugin.setCurrentMode('week');
-//   var html = this.plugin.getHeader();
-// });
+test("can get a header that defaults to a thead", function() {
+  this.plugin.setDate(new Date());
+  var html = this.plugin.getHeader();
+  ok(html.substr(0,7) === '<thead>');
+  ok(html.substr(-8) === '</thead>');
+});
 // <table>
 //   <thead>
 //     <tr>
@@ -103,13 +103,13 @@ test("setting date by string without moment.js throws error", function() {
 //   </thead>
 //   <tbody>
 //     <tr>
-//       <td class="day ">5</td>
-//       <td class="day ">6</td>
-//       <td class="day ">7</td>
-//       <td class="day ">8</td>
-//       <td class="day ">9</td>
-//       <td class="day ">10</td>
-//       <td class="day ">11</td>
+//       <td class="day">5</td>
+//       <td class="day">6</td>
+//       <td class="day">7</td>
+//       <td class="day">8</td>
+//       <td class="day">9</td>
+//       <td class="day">10</td>
+//       <td class="day">11</td>
 //     </tr>
 //   </tbody>
 // </table>
