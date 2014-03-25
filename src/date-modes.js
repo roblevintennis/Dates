@@ -1,4 +1,9 @@
 ;(function ($, window, document, undefined) {
+	if (!String.prototype.trim) {//trim polyfill
+	  String.prototype.trim = function () {
+	    return this.replace(/^\s+|\s+$/g, '');
+	  };
+	}
 	var dateFillName = "datefill",
 		defaults = {
 			format: "mm-dd-yyyy",
@@ -71,13 +76,12 @@
     	for (var i = 0; i < attrs.length; i+=2) {
     		inner += attrs[i] + '="' + attrs[i+1] +'" ';
     	};
-    	//close tag and return
-    	return unclosedOpenTag+inner+'>'+value+close;
+    	return unclosedOpenTag+inner.trim()+'>'+value+close;
     },
-  	_getDay: function(dayIndex, extraContent) {
+  	_getDay: function(dayLabel, extraContent) {
 			var wrap = this._getRowWrap();//<li> or <td>
   		extraContent = extraContent || '';
-			var content = '<span>'+dayIndex+'</span>'+extraContent;
+			var content = '<span>'+dayLabel+'</span>'+extraContent;
     	var attrs = ['class', 'day'];
 			return this._getTagWithAttr(wrap[1]+wrap[2], attrs, content);
   	},

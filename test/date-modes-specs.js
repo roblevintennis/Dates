@@ -105,12 +105,12 @@ module('Build Tags—Table', {
 });
 test("can build tags with attributes", function() {
   var actual = this.plugin._getTagWithAttr('<div></div>', ['id', 'foo', 'class', 'bar']);
-  var expected = '<div id="foo" class="bar" ></div>'
+  var expected = '<div id="foo" class="bar"></div>'
   equal(expected, actual, "should build a tag with attributes");
 });
 test("can build tags with attributes and a value", function() {
   var actual = this.plugin._getTagWithAttr('<div></div>', ['id', 'foo', 'class', 'bar'], "This is my text!");
-  var expected = '<div id="foo" class="bar" >This is my text!</div>'
+  var expected = '<div id="foo" class="bar">This is my text!</div>'
   equal(expected, actual, "should build a tag with attributes and value");
 });
 test("can get a header that defaults to a thead", function() {
@@ -129,13 +129,13 @@ test("can get a header with days", function () {
   ok(isDays, "Used days");
 });
 test("can get a specific day", function() {
-  var expected = '<td class="day" ><span>5</span></td>';
+  var expected = '<td class="day"><span>5</span></td>';
   var html = this.plugin._getDay(5);
   equal(expected, html, "Gets day");
 });
 test("can get a specific day and include arbitrary content", function() {
   var extraContent = '<div class="day-info">This is something else</div>';
-  var expected = '<td class="day" ><span>5</span>'+extraContent+'</td>';
+  var expected = '<td class="day"><span>5</span>'+extraContent+'</td>';
   var html = this.plugin._getDay(5, extraContent);
   equal(expected, html, "Gets day with extra content");
 });
@@ -164,13 +164,13 @@ test("can get a header as UL wrapped in DIV", function() {
   ok(isLIs, "gets an LI version of the header");
 });
 test("can get a specific day as LI", function() {
-  var expected = '<li class="day" ><span>5</span></li>';
+  var expected = '<li class="day"><span>5</span></li>';
   var html = this.plugin._getDay(5);
   equal(expected, html, "Gets day as LI");
 });
 test("can get a specific day as LI and include arbitrary content", function() {
   var extraContent = '<div class="day-info">This is something else</div>';
-  var expected = '<li class="day" ><span>5</span>'+extraContent+'</li>';
+  var expected = '<li class="day"><span>5</span>'+extraContent+'</li>';
   var html = this.plugin._getDay(5, extraContent);
   equal(expected, html, "Gets day with extra content");
 });
