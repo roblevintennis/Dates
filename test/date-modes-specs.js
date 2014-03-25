@@ -123,7 +123,7 @@ test("can get a header with daysMin", function () {
   var isDaysMin = html.indexOf('>Su<') > -1;
   ok(isDaysMin, "Used daysMin");
 });
-test("can get a header with days", function () {
+test("can get a header with 'full days' labels", function () {
   var html = this.plugin.getHeader(null, 'days');
   var isDays = html.indexOf('>Sunday<') > -1;
   ok(isDays, "Used days");
@@ -133,8 +133,14 @@ test("can get a specific day", function() {
   var html = this.plugin._getDay(5);
   equal(expected, html, "Gets day");
 });
-test("can get a specific day and include arbitrary content", function() {
-  var extraContent = '<div class="day-info">This is something else</div>';
+test("can get a specific day with custom label", function() {
+  var customFormattedLbl = 'Tuesday 3/25';
+  var expected = '<td class="day"><span>Tuesday 3/25</span></td>';
+  var html = this.plugin._getDay(customFormattedLbl);
+  equal(expected, html, "Gets day with arbitrary label");
+});
+test("can get a specific day and include extra arbitrary content", function() {
+  var extraContent = '<div class="day-info">More stuff..</div>';
   var expected = '<td class="day"><span>5</span>'+extraContent+'</td>';
   var html = this.plugin._getDay(5, extraContent);
   equal(expected, html, "Gets day with extra content");
