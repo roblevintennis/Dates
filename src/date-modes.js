@@ -17,6 +17,7 @@
 			this.date = null;
 			this.element = element;
 			this.options = $.extend( {}, defaults, options );
+			this.useLi = this.options.useList || this.options.useLi || false;
 			this.prev = this.options.prev || '‹';
 			this.nxt = this.options.nxt || '›';
 			this._defaults = defaults;
@@ -56,20 +57,53 @@
 	      return date;
 	    },
 	    getDaysOfWeek: function(typeKey) {
+	    	var wrap = this.getHeaderWrap();
 	    	typeKey = typeKey ? typeKey : 'daysShort';
 				var sDays = this._defaults.dateLabels[typeKey];
-				var days = '<tr>';
+				var days = wrap[0];
 				for (var i = 0; i < sDays.length; i++) {
 					days += '<th class="dow">' + sDays[i] + '</th>';
 				};
+				days += wrap[3];
 				return days;
 	    },
+	    getHeaderWrap: function() {
+	    	return this.useLi ? ['<ul>', '<li>', '</li>', '</ul>'] : ['<tr>', '<th>', '</th>', '</tr>'];
+	    },
+	    getRowWrap: function() {
+	    	return this.useLi ? ['<ul>', '<li>', '</li>', '</ul>'] : ['<tr>', '<td>', '</td>', '</tr>'];
+	    },
+	    //tag is like '<tr></tr>' or '<ul></ul>'
+	    //attrs is an array like ['class', 'foo', 'colspan', '5']
+	    //value is optional value to put in between open close tags
+	    _getTagWithAttr: function(tag, attrs, value) {
+	    	value = value || '';
+				var parts = tag.split('><');
+				var unclosedOpenTag = parts[0] +' ';
+				var close = '<' + parts[1];
+				var inner = '';
+				//add attributes
+	    	for (var i = 0; i < attrs.length; i+=2) {
+	    		inner += attrs[i] + '="' + attrs[i+1] +'" ';
+	    	};
+	    	//close tag and return
+	    	return unclosedOpenTag+inner+'>'+value+close;
+	    },
+	    _getTitle: function(formattedTitle, wrap) {
+				if (this.useLi) {
+					return this._getTagWithAttr(wrap[1]+wrap[2], ['class', 'switch'], formattedTitle);
+				}
+				//we only want colspan for table header
+				return this._getTagWithAttr(wrap[1]+wrap[2], ['colspan', '5', 'class', 'switch'], formattedTitle);
+	    },
 	    getTitle: function(formattedTitle) {
-	    	var html = '<tr>' +
-		      '<th class="prev">'+this.prev+'</th>' +
-		      '<th colspan="5" class="switch">'+ formattedTitle + '</th>' +
-		      '<th class="next">'+this.nxt+'</th>' +
-		    '</tr>';
+	    	var wrap = this.getHeaderWrap();
+	    	var html = wrap[0] +
+					this._getTagWithAttr(wrap[1]+wrap[2], ['class', 'prev'], this.prev) +
+					this._getTitle(formattedTitle, wrap) +
+					this._getTagWithAttr(wrap[1]+wrap[2], ['class', 'next'], this.nxt) +
+		    wrap[3];
+		    return html;
 	    },
 	    getHeader: function(format) {
 	    	//TODO: WE'LL NEED TO UPDATE ALL THIS BASED ON CURRENT MODE E.G. DAY||WEEK||MONTH ETC.
