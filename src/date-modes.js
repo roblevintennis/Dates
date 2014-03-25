@@ -103,7 +103,9 @@
     	//TODO: WE'LL NEED TO UPDATE ALL THIS BASED ON CURRENT MODE E.G. DAY||WEEK||MONTH ETC.
     	format = format ? format : 'MMMM YYYY';
     	var formatted = moment(this.date).format("MMMM YYYY");
-    	return '<thead>' + this.getTitle(formatted) + this.getDaysOfWeek(dayTypeKey) + '</thead>';
+    	var open  = this.useLi ? '<div class="header">' : '<thead class="header">';
+    	var close = this.useLi ? '</div>' : '</thead>';
+    	return open+ this.getTitle(formatted) + this.getDaysOfWeek(dayTypeKey) +close;
     },
 		isLeapYear: function (yr) { //ref: http://www.timeanddate.com/date/leapyear.html
 			var isLeap = yr % 4 === 0;

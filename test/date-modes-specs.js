@@ -90,13 +90,13 @@ test("can set a date", function() {
 //////////////////////////////////////////////////////////////////////
 // BUILD TAGS ////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-module('Build Tags', {
+module('Build Tags—Table', {
   setup: function() {
-    this.defaultFormat = "mm-dd-yyyy";
     this.input = $('<input type="text" value="03-23-2014">')
       .appendTo('#qunit-fixture')
       .datefill({format: this.defaultFormat});
     this.plugin = this.input.data().datefill;
+    this.plugin.setDate(new Date());
   },
   teardown: function() {
     this.input.remove();
@@ -115,7 +115,7 @@ test("can build tags with attributes and a value", function() {
 });
 test("can get a header that defaults to a thead", function() {
   var html = this.plugin.getHeader();
-  ok(html.substr(0,7) === '<thead>');
+  ok(html.substr(0,6) === '<thead');
   ok(html.substr(-8) === '</thead>');
 });
 test("can get a header with daysMin", function () {
@@ -127,6 +127,27 @@ test("can get a header with days", function () {
   var html = this.plugin.getHeader(null, 'days');
   var isDays = html.indexOf('>Sunday<') > -1;
   ok(isDays, "Used days");
+});
+
+module('Build Tags—LIs', {
+  setup: function() {
+    this.input = $('<input type="text" value="03-23-2014">')
+      .appendTo('#qunit-fixture')
+      .datefill({useList: true, format: this.defaultFormat});
+    this.plugin = this.input.data().datefill;
+    this.plugin.setDate(new Date());
+  },
+  teardown: function() {
+    this.input.remove();
+    this.plugin = null;
+  }
+});
+test("can get a header as UL wrapped in DIV", function() {
+  var html = this.plugin.getHeader();
+  ok(html.substr(0,4) === '<div');
+  ok(html.substr(-6) === '</div>');
+  var isLIs = html.toLowerCase().indexOf('<li') > -1;
+  ok(isLIs, "gets an LI version of the header");
 });
 
 
