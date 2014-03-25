@@ -1,5 +1,5 @@
 ;(function ($, window, document, undefined) {
-		var dateModesName = "datemodes",
+		var dateFillName = "datefill",
 			defaults = {
 				format: "mm-dd-yyyy",
 				dateLabels: {
@@ -9,19 +9,21 @@
 					months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
 					monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 				},
-				modes: [{mode: 'week'}, {mode: 'month'}, {mode: 'year'}, {mode: 'years'}],
-				modeIndices: {'week':0, 'month':1, 'year':2, 'years':3}
+				modes: [{mode: 'day'}, {mode: 'week'}, {mode: 'month'}, {mode: 'year'}, {mode: 'years'}],
+				modeIndices: {'day':0, 'week': 1, 'month':2, 'year':3, 'years':4}
 			};
 
-		function DateModes (element, options) {
+		function DateFill (element, options) {
+			this.date = null;
 			this.element = element;
 			this.options = $.extend( {}, defaults, options );
 			this._defaults = defaults;
-			this._currentMode = this._defaults.modes[1];//month
-			this._name = dateModesName;
+			this._currentMode = this._defaults.modes[2];//month
+			this._name = dateFillName;
 			this.init();
 		}
-		DateModes.prototype = {
+
+		DateFill.prototype = {
 			init: function () {
 				// Place initialization logic here
 				// You already have access to the DOM element and
@@ -35,12 +37,30 @@
 				return this._currentMode;
 			},
 			setCurrentMode: function (modeKey) {
-				var indice = {'week':0, 'month':1, 'year':2, 'years':3};
 				var indice = this._defaults.modeIndices[modeKey];
 				if (indice < 0 || indice > 4 || indice === undefined) throw new Error("Invalid mode indice.");
 				this._currentMode = this._defaults.modes[indice];
 				return this._currentMode;
 			},
+			getDate: function() {
+				return this.date;
+			},
+			setDate: function(date) {
+	      if (typeof date === 'string') {
+	        try {
+	        	this.date = moment(date);
+	        } catch (err) {
+	        	if (err.name === 'TypeError' || err.name === 'ReferenceError') {
+							throw new ReferenceError("Setting date by string requires moment.js library");
+	        	} else {
+							throw new Error("Unknown error setting date by string");
+	        	}
+	        }
+	      } else {
+	        this.date = new Date(date);
+	      }
+	      return date;
+	    },
 			isLeapYear: function (yr) { //ref: http://www.timeanddate.com/date/leapyear.html
 				var isLeap = yr % 4 === 0;
 				if (yr % 100 === 0) {
@@ -55,10 +75,10 @@
 				return [31,(this.isLeapYear(yr) ? 28 : 29),31,30,31,30,31,31,30,31,30,31][monthIndex];
 			}
 		};
-		$.fn[dateModesName] = function (options) {
+		$.fn[dateFillName] = function (options) {
 			return this.each(function() {
-				if(!$.data(this, dateModesName)) {
-					$.data(this, dateModesName, new DateModes(this, options));
+				if(!$.data(this, dateFillName)) {
+					$.data(this, dateFillName, new DateFill(this, options));
 				}
 			});
 		};

@@ -1,26 +1,11 @@
-/*
-Cheat sheet: ok, equal, notEqual, strictEqual, notStrictEqual, deepEqual, notDeepEqual, raises
-
-test( "Appends a div", function() {
-  var $fixture = $( "#qunit-fixture" );
-  $fixture.append( "<div>hello!</div>" );
-  equal( $( "div", $fixture ).length, 1, "div added successfully!" );
-});
-asyncTest("asyncTest & start", function() {
-  var actual = false;
-  setTimeout(function() {
-    ok(actual, "this test actually runs, and fails");
-    start();
-  }, 1000);
-});
-*/
+// Cheat sheet: ok, equal, notEqual, strictEqual, notStrictEqual, deepEqual, notDeepEqual, raises
 module('date-utils', {
   setup: function() {
     this.defaultFormat = "mm-dd-yyyy";
     this.input = $('<input type="text" value="03-23-2014">')
       .appendTo('#qunit-fixture')
-      .datemodes({format: this.defaultFormat});
-    this.plugin = this.input.data().datemodes;
+      .datefill({format: this.defaultFormat});
+    this.plugin = this.input.data().datefill;
   },
   teardown: function() {
     this.input.remove();
@@ -30,7 +15,7 @@ module('date-utils', {
 test("date modes plugin can be bootstraped", function() {
   ok(true, "this test is fine");
   ok(this.plugin._defaults.format === this.defaultFormat, 'expected default format property');
-  ok(this.plugin._name === 'datemodes', 'expected plugin name');
+  ok(this.plugin._name === 'datefill', 'expected plugin name');
 });
 test("can determine if leap year", function() {
   var randLeapYears = [2000,2188,2400,2108,2012,2116,2120];
@@ -54,23 +39,77 @@ test("can get days in month for months other than February", function() {
     }
   }
 });
-test("can get days in February taking leap years into account", function() {
-  var notLeapYears = [2001,2002,2003,2005,1700,1800,1900];
-  var feb = 1;
-  for (var i = 0; i < notLeapYears.length; i++) {
-    ok(this.plugin.getNumberOfDaysInMonth(notLeapYears[i], feb) === 29, "days February when NOT leapyear");
-  }
-});
-test("can get days in February taking leap years into account", function() {
+test("can get days in February when IS a leap year", function() {
   var leapYears = [2000,2004,2008,2012,2016,2020];
   var feb = 1;
   for (var i = 0; i < leapYears.length; i++) {
     ok(this.plugin.getNumberOfDaysInMonth(leapYears[i], feb) === 28, "days february when leap year");
   }
 });
+test("can get days in February when not a leap year", function() {
+  var notLeapYears = [2001,2002,2003,2005,1700,1800,1900];
+  var feb = 1;
+  for (var i = 0; i < notLeapYears.length; i++) {
+    ok(this.plugin.getNumberOfDaysInMonth(notLeapYears[i], feb) === 29, "days February when NOT leapyear");
+  }
+});
 test("can get current mode", function() {
   ok(this.plugin.getCurrentMode().mode === "month", "gets default mode (month)");
 });
 test("can set current mode and returns updated mode", function() {
-  ok(this.plugin.setCurrentMode('week').mode === "week", "sets and returns updated mode");
+  ok(this.plugin.setCurrentMode('week').mode === "week", "sets/returns updated week mode");
+  ok(this.plugin.setCurrentMode('month').mode === "month", "sets/returns updated month mode");
+  ok(this.plugin.setCurrentMode('year').mode === "year", "sets/returns updated year mode");
+  ok(this.plugin.setCurrentMode('years').mode === "years", "sets/returns updated years mode");
+  ok(this.plugin.setCurrentMode('day').mode === "day", "sets/returns updated day mode");
 });
+test("can set a date", function() {
+  var d = new Date();
+  var actual = null;
+  this.plugin.setDate(d);
+  actual = this.plugin.getDate();
+  equal(d.getTime(), actual.getTime(), "set date should be same");
+});
+test("setting date by string without moment.js throws error", function() {
+  var oldMoment = window.moment ? window.moment : null;
+  debugger; 
+  window.moment = null;
+  throws(function () {this.plugin.setDate('January 03, 2000'); },
+    ReferenceError,
+    "Must throw ReferenceError if date string but no momentjs.");
+  window.moment = oldMoment;
+});
+// test("can get a wrap a header", function() {
+//   //set the mode to week
+//   this.plugin.setCurrentMode('week');
+//   var html = this.plugin.getHeader();
+// });
+// <table>
+//   <thead>
+//     <tr>
+//       <th class="prev">‹</th>
+//       <th colspan="5" class="switch">February 2012</th>
+//       <th class="next">›</th>
+//     </tr>
+//     <tr>
+//       <th class="dow">Su</th>
+//       <th class="dow">Mo</th>
+//       <th class="dow">Tu</th>
+//       <th class="dow">We</th>
+//       <th class="dow">Th</th>
+//       <th class="dow">Fr</th>
+//       <th class="dow">Sa</th>
+//     </tr>
+//   </thead>
+//   <tbody>
+//     <tr>
+//       <td class="day ">5</td>
+//       <td class="day ">6</td>
+//       <td class="day ">7</td>
+//       <td class="day ">8</td>
+//       <td class="day ">9</td>
+//       <td class="day ">10</td>
+//       <td class="day ">11</td>
+//     </tr>
+//   </tbody>
+// </table>
