@@ -1,5 +1,9 @@
 // Cheat sheet: ok, equal, notEqual, strictEqual, notStrictEqual, deepEqual, notDeepEqual, raises
-module('date-utils', {
+
+//////////////////////////////////////////////////////////////////////
+// UTILITIES /////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
+module('Utilities', {
   setup: function() {
     this.defaultFormat = "mm-dd-yyyy";
     this.input = $('<input type="text" value="03-23-2014">')
@@ -7,10 +11,22 @@ module('date-utils', {
       .datefill({format: this.defaultFormat});
     this.plugin = this.input.data().datefill;
   },
-  teardown: function() {
+  teardown: function(context) {
     this.input.remove();
-    plugin = null;
+    this.plugin = null;
   }
+});
+test("attempting to use without moment.js throws error", function() {
+  var oldMoment = window.moment ? window.moment : null;
+  window.moment = null;
+  throws(
+    function () {
+      this.plugin.init();
+    },
+    Error,
+    "Throws Error if no moment dependency loaded.");
+
+  window.moment = oldMoment;
 });
 test("date modes plugin can be bootstraped", function() {
   ok(true, "this test is fine");
@@ -70,19 +86,22 @@ test("can set a date", function() {
   actual = this.plugin.getDate();
   equal(d.getTime(), actual.getTime(), "set date should be same");
 });
-test("setting date by string without moment.js throws error", function() {
-  var oldMoment = window.moment ? window.moment : null;
-  window.moment = null;
-  throws(function () {this.plugin.setDate('January 03, 2000'); },
-    ReferenceError,
-    "Must throw ReferenceError if date string but no momentjs.");
-  window.moment = oldMoment;
-});
-test("can get a header that defaults to a thead", function() {
-  this.plugin.setDate(new Date());
-  var html = this.plugin.getHeader();
-  ok(html.substr(0,7) === '<thead>');
-  ok(html.substr(-8) === '</thead>');
+
+//////////////////////////////////////////////////////////////////////
+// BUILD TAGS ////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
+module('Build Tags', {
+  setup: function() {
+    this.defaultFormat = "mm-dd-yyyy";
+    this.input = $('<input type="text" value="03-23-2014">')
+      .appendTo('#qunit-fixture')
+      .datefill({format: this.defaultFormat});
+    this.plugin = this.input.data().datefill;
+  },
+  teardown: function() {
+    this.input.remove();
+    this.plugin = null;
+  }
 });
 test("can build tags with attributes", function() {
   var actual = this.plugin._getTagWithAttr('<div></div>', ['id', 'foo', 'class', 'bar']);
@@ -94,6 +113,23 @@ test("can build tags with attributes and a value", function() {
   var expected = '<div id="foo" class="bar" >This is my text!</div>'
   equal(expected, actual, "should build a tag with attributes and value");
 });
+test("can get a header that defaults to a thead", function() {
+  var html = this.plugin.getHeader();
+  ok(html.substr(0,7) === '<thead>');
+  ok(html.substr(-8) === '</thead>');
+});
+test("can get a header with daysMin", function () {
+  var html = this.plugin.getHeader(null, 'daysMin');
+  var isDaysMin = html.indexOf('>Su<') > -1;
+  ok(isDaysMin, "Used daysMin");
+});
+test("can get a header with days", function () {
+  var html = this.plugin.getHeader(null, 'days');
+  var isDays = html.indexOf('>Sunday<') > -1;
+  ok(isDays, "Used days");
+});
+
+
 // <table>
 //   <thead>
 //     <tr>
