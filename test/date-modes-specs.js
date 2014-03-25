@@ -88,7 +88,7 @@ test("can set a date", function() {
 });
 
 //////////////////////////////////////////////////////////////////////
-// BUILD TAGS ////////////////////////////////////////////////////////
+// BUILD TAGS—TABLE //////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 module('Build Tags—Table', {
   setup: function() {
@@ -128,7 +128,21 @@ test("can get a header with days", function () {
   var isDays = html.indexOf('>Sunday<') > -1;
   ok(isDays, "Used days");
 });
+test("can get a specific day", function() {
+  var expected = '<td class="day" ><span>5</span></td>';
+  var html = this.plugin._getDay(5);
+  equal(expected, html, "Gets day");
+});
+test("can get a specific day and include arbitrary content", function() {
+  var extraContent = '<div class="day-info">This is something else</div>';
+  var expected = '<td class="day" ><span>5</span>'+extraContent+'</td>';
+  var html = this.plugin._getDay(5, extraContent);
+  equal(expected, html, "Gets day with extra content");
+});
 
+//////////////////////////////////////////////////////////////////////
+// BUILD TAGS—LIST ///////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
 module('Build Tags—LIs', {
   setup: function() {
     this.input = $('<input type="text" value="03-23-2014">')
@@ -149,7 +163,17 @@ test("can get a header as UL wrapped in DIV", function() {
   var isLIs = html.toLowerCase().indexOf('<li') > -1;
   ok(isLIs, "gets an LI version of the header");
 });
-
+test("can get a specific day as LI", function() {
+  var expected = '<li class="day" ><span>5</span></li>';
+  var html = this.plugin._getDay(5);
+  equal(expected, html, "Gets day as LI");
+});
+test("can get a specific day as LI and include arbitrary content", function() {
+  var extraContent = '<div class="day-info">This is something else</div>';
+  var expected = '<li class="day" ><span>5</span>'+extraContent+'</li>';
+  var html = this.plugin._getDay(5, extraContent);
+  equal(expected, html, "Gets day with extra content");
+});
 
 // <table>
 //   <thead>

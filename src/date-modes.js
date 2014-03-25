@@ -74,6 +74,13 @@
     	//close tag and return
     	return unclosedOpenTag+inner+'>'+value+close;
     },
+  	_getDay: function(dayIndex, extraContent) {
+			var wrap = this._getRowWrap();//<li> or <td>
+  		extraContent = extraContent || '';
+			var content = '<span>'+dayIndex+'</span>'+extraContent;
+    	var attrs = ['class', 'day'];
+			return this._getTagWithAttr(wrap[1]+wrap[2], attrs, content);
+  	},
     _getTitle: function(formattedTitle, wrap) {
 			//we only want the colspan attribute for table header (not if using LIs)
     	var attrs = this.useLi ? ['class', 'switch'] : ['colspan', '5', 'class', 'switch'];
@@ -107,6 +114,7 @@
     	var close = this.useLi ? '</div>' : '</thead>';
     	return open+ this.getTitle(formatted) + this.getDaysOfWeek(dayTypeKey) +close;
     },
+
 		isLeapYear: function (yr) { //ref: http://www.timeanddate.com/date/leapyear.html
 			var isLeap = yr % 4 === 0;
 			if (yr % 100 === 0) {
