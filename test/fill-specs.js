@@ -1,4 +1,5 @@
 // Cheat sheet: ok, equal, notEqual, strictEqual, notStrictEqual, deepEqual, notDeepEqual, raises
+// browserify src/index.js -o lib.js
 
 //////////////////////////////////////////////////////////////////////
 // UTILITIES /////////////////////////////////////////////////////////
@@ -145,7 +146,16 @@ test("can get a specific day and include extra arbitrary content", function() {
   var html = this.plugin._getDay(5, extraContent);
   equal(expected, html, "Gets day with extra content");
 });
-
+test("can get days of week", function () {
+  var expected = '<tr><th class="dow">Su</th><th class="dow">Mo</th><th class="dow">Tu</th><th class="dow">We</th><th class="dow">Th</th><th class="dow">Fr</th><th class="dow">Sa</th></tr>';
+  var html = this.plugin.getDaysOfWeek('daysMin');
+  equal(expected, html, "days of week min");
+});
+test("can get months", function () {
+  var html = this.plugin.getMonths('monthsShort');
+  var expectedStart = '<tr><td class="month">Jan</td><td class="month">Feb</td>';
+  ok(html.indexOf(expectedStart) === 0, 'gets months w/expected markup');
+});
 //////////////////////////////////////////////////////////////////////
 // BUILD TAGS—LIST ///////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
@@ -180,7 +190,11 @@ test("can get a specific day as LI and include arbitrary content", function() {
   var html = this.plugin._getDay(5, extraContent);
   equal(expected, html, "Gets day with extra content");
 });
-
+test("can get months as LIs", function () {
+  var html = this.plugin.getMonths('monthsShort');
+  var expectedStart = '<ul><li class="month">Jan</li><li class="month">Feb</li>';
+  ok(html.indexOf(expectedStart) === 0, 'gets months w/expected markup');
+});
 // <table>
 //   <thead>
 //     <tr>

@@ -126,6 +126,17 @@ var DateFill = require('./fill').DateFill;
       days += wrap[3];
       return days;
     },
+    getMonths: function(monthTypeKey) {
+      monthTypeKey = monthTypeKey ? monthTypeKey : 'monthsShort';
+      var wrap = this._getRowWrap();//<li> or <td>
+      var months = this.dateLabels[monthTypeKey];
+      var monthLabels= wrap[0];
+      for (var i = 0; i < months.length; i++) {
+        monthLabels += this._getTagWithAttr(wrap[1]+wrap[2], ['class', 'month'], months[i]);
+      };
+      monthLabels += wrap[3];
+      return monthLabels;
+    },
     getHeader: function(format, dayTypeKey) {
       //TODO: WE'LL NEED TO UPDATE ALL THIS BASED ON CURRENT MODE E.G. DAY||WEEK||MONTH ETC.
       format = format ? format : 'MMMM YYYY';

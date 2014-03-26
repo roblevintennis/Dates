@@ -27,6 +27,14 @@
   var html = this.plugin._getDay('Tuesday 3/25');
   $('#test').append('<br>' +html);
 
+  //TEST DAYS OF WEEK
+  var html = this.plugin.getDaysOfWeek('daysMin');
+  $('#test').append('<br>' +html);
+  var html = this.plugin.getDaysOfWeek('daysShort');
+  $('#test').append('<br>' +html);
+  var html = this.plugin.getDaysOfWeek('days');
+  $('#test').append('<br>' +html);
+
 </script>
 
 <!-- DAYS -->
