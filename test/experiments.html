@@ -2,55 +2,26 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Date Modes Tests</title>
-  <link rel="stylesheet" href="qunit.css">
+  <title>Experiments  </title>
   <script src="../vendor/jquery.js"></script>
-  <script src="../src/date-modes.js"></script>
-  <script src="qunit.js"></script>
-  <script src="date-modes-specs.js"></script>
+  <script src="../vendor/moment.js"></script>
+  <script src="../lib.js"></script>
 </head>
 <body>
 
-<h1>TESTING</h1>
-<table>
-<thead>
-  <tr>
-    <th class="prev" >‹</th>
-    <th colspan="5" class="switch" >March 2014</th>
-    <th class="next" >›</th>
-  </tr>
-  <tr>
-    <th class="dow" >Sun</th>
-    <th class="dow" >Mon</th>
-    <th class="dow" >Tue</th>
-    <th class="dow" >Wed</th>
-    <th class="dow" >Thu</th>
-    <th class="dow" >Fri</th>
-    <th class="dow" >Sat</th>
-  </tr>
-</thead>
-</table>
+<div id="plugin"></div>
+<div id="test"></div>
 
-<h1>DIV/ULs</h1>
-<div class="header">
-  <ul>
-    <li class="prev" >‹</li>
-    <li class="switch" >March 2014</li>
-    <li class="next" >›</li>
-  </ul>
-  <ul>
-    <li class="dow" >Sun</li>
-    <li class="dow" >Mon</li>
-    <li class="dow" >Tue</li>
-    <li class="dow" >Wed</li>
-    <li class="dow" >Thu</li>
-    <li class="dow" >Fri</li>
-    <li class="dow" >Sat</li>
-  </ul>
-</div>
-<h1>END TEST</h1>
-
-
+<script type="text/javascript">
+  var defaultFormat = "mm-dd-yyyy";
+  var pluginEl = $('<div></div>')
+      .appendTo('#plugin')
+      .datefill({format: this.defaultFormat});
+  var plugin = pluginEl.data().datefill;
+  // var html = this.plugin._getDay('Tuesday 3/25');
+  var html = this.plugin.getHeader();
+  $('#test').html(html);
+</script>
 
 <!-- DAYS -->
 <div class="days">

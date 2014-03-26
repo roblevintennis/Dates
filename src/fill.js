@@ -15,7 +15,7 @@
     };
 
   function DateFill (element, options) {
-    this.date = null;
+    this.date = new Date();
     this.element = element;
     this.options = $.extend( {}, defaults, options );
     this.useLi = this.options.useList || this.options.useLi || false;
