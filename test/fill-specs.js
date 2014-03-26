@@ -164,6 +164,15 @@ test("can get days of week labels", function () {
   var html = this.plugin.getDaysOfWeekLabels('daysMin');
   equal(expected, html, "days of week min");
 });
+test("can get days of week labels with custom start of week day", function () {
+  this.input = $('<input type="text" value="03-23-2014">')
+    .appendTo('#qunit-fixture')
+    .datefill({weekStartsOn: 2});
+  this.plugin = this.input.data().datefill;
+  var expected = '<tr><th class="dow">Tu</th><th class="dow">We</th><th class="dow">Th</th><th class="dow">Fr</th><th class="dow">Sa</th><th class="dow">Su</th><th class="dow">Mo</th></tr>';
+  var html = this.plugin.getDaysOfWeekLabels('daysMin');
+  equal(expected, html, "days of week with custom start week day");
+});
 test("can get month labels", function () {
   var html = this.plugin.getMonthLabels('monthsShort');
   var expectedStart = '<tr><td class="month">Jan</td><td class="month">Feb</td>';

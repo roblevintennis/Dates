@@ -120,10 +120,11 @@ var DateFill = require('./fill').DateFill;
     getDaysOfWeekLabels: function(dayTypeKey) {
       var wrap = this._getHeaderWrap();
       dayTypeKey = dayTypeKey ? dayTypeKey : 'daysShort';
-      var sDays = this.dateLabels[dayTypeKey];
+      var dayLabels = this.dateLabels[dayTypeKey];
       var days = wrap[0];
-      for (var i = 0; i < sDays.length; i++) {
-        days += this._getTagWithAttr(wrap[1]+wrap[2], ['class', 'dow'], sDays[i]);
+      for (var i = 0; i < dayLabels.length; i++) {
+        var indice = (i + this.weekStartsOn) % 7;
+        days += this._getTagWithAttr(wrap[1]+wrap[2], ['class', 'dow'], dayLabels[indice]);
       };
       days += wrap[3];
       return days;
