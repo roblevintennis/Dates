@@ -45,6 +45,8 @@ var DateFill = require('./fill').DateFill;
     this.dateLabels = this.options.dateLabels || this._defaults.dateLabels;
     this._currentMode = this._defaults.modes[2];//month
     this._name = dateFillName;
+    this.weekStartsOn = this.options.weekStartsOn || 0;
+    this.weekEndsOn = this.weekStartsOn === 0 ? 6 : this.weekStartsOn-1;
     this.init();
   }
 

@@ -34,6 +34,19 @@ test("date modes plugin can be bootstraped", function() {
   ok(this.plugin._defaults.format === this.defaultFormat, 'expected default format property');
   ok(this.plugin._name === 'datefill', 'expected plugin name');
 });
+test("start of week defaults to Sunday", function() {
+  ok(this.plugin.weekStartsOn === 0, 'expected default start of week');
+  ok(this.plugin.weekEndsOn === 6, 'sets default end of week');
+});
+test("can set start of week", function() {
+  this.input = $('<input type="text" value="03-23-2014">')
+      .appendTo('#qunit-fixture')
+      .datefill({weekStartsOn: 3});
+    this.plugin = this.input.data().datefill;
+
+  ok(this.plugin.weekStartsOn === 3, 'sets start of week');
+  ok(this.plugin.weekEndsOn === 2, 'sets corresponding end of week');
+});
 test("can determine if leap year", function() {
   var randLeapYears = [2000,2188,2400,2108,2012,2116,2120];
   for (var i = randLeapYears.length - 1; i >= 0; i--) {
