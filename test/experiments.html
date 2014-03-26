@@ -18,9 +18,15 @@
       .appendTo('#plugin')
       .datefill({format: this.defaultFormat});
   var plugin = pluginEl.data().datefill;
-  // var html = this.plugin._getDay('Tuesday 3/25');
+
+  //TEST HEADER
   var html = this.plugin.getHeader();
   $('#test').html(html);
+
+  //TEST DAY
+  var html = this.plugin._getDay('Tuesday 3/25');
+  $('#test').append('<br>' +html);
+
 </script>
 
 <!-- DAYS -->
