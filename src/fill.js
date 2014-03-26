@@ -1,7 +1,5 @@
 ;(function () {
 
-  require('./polyfills');
-
   var dateFillName = "datefill",
     defaults = {
       format: "mm-dd-yyyy",

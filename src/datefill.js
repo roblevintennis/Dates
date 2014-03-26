@@ -1,3 +1,7 @@
+//polyfills has stuff like shims for String.prototype.trim etc.
+require('./polyfills');
+
+//Date fill module stuff
 var dateFillName = require('./fill').dateFillName;
 var DateFill = require('./fill').DateFill;
 
