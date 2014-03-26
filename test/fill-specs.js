@@ -159,16 +159,17 @@ test("can get a specific day and include extra arbitrary content", function() {
   var html = this.plugin._getDay(5, extraContent);
   equal(expected, html, "Gets day with extra content");
 });
-test("can get days of week", function () {
+test("can get days of week labels", function () {
   var expected = '<tr><th class="dow">Su</th><th class="dow">Mo</th><th class="dow">Tu</th><th class="dow">We</th><th class="dow">Th</th><th class="dow">Fr</th><th class="dow">Sa</th></tr>';
-  var html = this.plugin.getDaysOfWeek('daysMin');
+  var html = this.plugin.getDaysOfWeekLabels('daysMin');
   equal(expected, html, "days of week min");
 });
-test("can get months", function () {
-  var html = this.plugin.getMonths('monthsShort');
+test("can get month labels", function () {
+  var html = this.plugin.getMonthLabels('monthsShort');
   var expectedStart = '<tr><td class="month">Jan</td><td class="month">Feb</td>';
   ok(html.indexOf(expectedStart) === 0, 'gets months w/expected markup');
 });
+
 //////////////////////////////////////////////////////////////////////
 // BUILD TAGS—LIST ///////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
@@ -204,7 +205,7 @@ test("can get a specific day as LI and include arbitrary content", function() {
   equal(expected, html, "Gets day with extra content");
 });
 test("can get months as LIs", function () {
-  var html = this.plugin.getMonths('monthsShort');
+  var html = this.plugin.getMonthLabels('monthsShort');
   var expectedStart = '<ul><li class="month">Jan</li><li class="month">Feb</li>';
   ok(html.indexOf(expectedStart) === 0, 'gets months w/expected markup');
 });

@@ -97,7 +97,7 @@
       wrap[3];
       return html;
     },
-    getDaysOfWeek: function(dayTypeKey) {
+    getDaysOfWeekLabels: function(dayTypeKey) {
       var wrap = this._getHeaderWrap();
       dayTypeKey = dayTypeKey ? dayTypeKey : 'daysShort';
       var sDays = this.dateLabels[dayTypeKey];
@@ -108,7 +108,7 @@
       days += wrap[3];
       return days;
     },
-    getMonths: function(monthTypeKey) {
+    getMonthLabels: function(monthTypeKey) {
       monthTypeKey = monthTypeKey ? monthTypeKey : 'monthsShort';
       var wrap = this._getRowWrap();//<li> or <td>
       var months = this.dateLabels[monthTypeKey];
@@ -125,7 +125,7 @@
       var formatted = moment(this.date).format("MMMM YYYY");
       var open  = this.useLi ? '<div class="header">' : '<thead class="header">';
       var close = this.useLi ? '</div>' : '</thead>';
-      return open+ this.getTitle(formatted) + this.getDaysOfWeek(dayTypeKey) +close;
+      return open+ this.getTitle(formatted) + this.getDaysOfWeekLabels(dayTypeKey) +close;
     },
 
     isLeapYear: function (yr) { //ref: http://www.timeanddate.com/date/leapyear.html
