@@ -28,11 +28,16 @@
   $('#test').append('<br>' +html);
 
   //TEST DAYS OF WEEK
-  var html = this.plugin.getDaysOfWeek('daysMin');
+  var html = this.plugin.getDaysOfWeekLabels('daysMin');
   $('#test').append('<br>' +html);
-  var html = this.plugin.getDaysOfWeek('daysShort');
+  var html = this.plugin.getDaysOfWeekLabels('daysShort');
   $('#test').append('<br>' +html);
-  var html = this.plugin.getDaysOfWeek('days');
+  var html = this.plugin.getDaysOfWeekLabels('days');
+  $('#test').append('<br>' +html);
+
+  var start = moment('March 1, 2014');
+  var end = moment('April 1, 2014');//want days in March so set "up to" april 1
+  var html = this.plugin._getDaysForRange(start, end);
   $('#test').append('<br>' +html);
 
 </script>
