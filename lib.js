@@ -68,7 +68,11 @@ var DateFill = require('./fill').DateFill;
     },
     setDate: function(date) {
       if (typeof date === 'string') {
-        this.date = moment(date);
+        if (moment(date).isValid()) {
+          this.date = moment(date);
+        } else {
+          throw new Error("Invalid date string (according to momentjs)");
+        }
       } else {
         this.date = new Date(date);
       }
@@ -111,6 +115,65 @@ var DateFill = require('./fill').DateFill;
         inner.push(this._getDay(m.date()));
       }
       return wrap[0] + inner.join('') + wrap[3];
+    },
+    getRange: function(periodType, multiple) {
+      multiple = multiple || 1;
+      var startDate=this.date, endDate=this.date;
+      var wrap = this._getRowWrap();//<li> or <td>
+      var inner = [];
+      var m, d = this.date;
+      var open = this.useLi ? '<div>' : '<tbody>';//gets mutated later
+      var close = this.useLi ? '</div>' : '</tbody>';
+
+      switch(periodType) {
+        case 'week':
+          open  = this.useLi ? '<div class="week">' : '<tbody class="week">';
+          startDate = moment(d).weekday(0);
+          endDate = moment(d).weekday(7);
+          break;
+        case 'month':
+          open  = this.useLi ? '<div class="month">' : '<tbody class="month">';
+          startDate = moment(d).startOf('month');
+          endDate = moment(d).add('months', 1).startOf('month');
+          break;
+        case 'year':
+        ////////////////////////////////////////////////////////////
+        //TODO --- year
+        /////////////////////////////////////////////////////////////
+          open = this.useLi ? '<div class="year">' : '<tbody class="year">';
+          console.log("TODO:Year...")
+          break;
+        default:
+          console.log("Unknown range type.");
+      }
+
+      //Push an open tag for week
+      var firstTime = true;
+      var weekOpenTag = wrap[0], weekCloseTag = wrap[3];
+      weekOpenTag = weekOpenTag.substr(0, weekOpenTag.length-1) + ' class="week">';
+      inner.push(weekOpenTag);
+
+      for (m = startDate; m.isBefore(endDate); m.add('days', 1)) {
+        //If first day of week (and not the first time in loop, since we've already
+        //placed an open tag above loop), then push an open tag to start new week
+        if (!firstTime && m.day() === 0) {
+          inner.push(weekOpenTag);
+        } else {
+          firstTime = false;
+        }
+
+        inner.push(this._getDay(m.date()));
+
+        //If last day of week push the closing tag
+        if (m.day() === 6) {
+          inner.push(weekCloseTag);
+        }
+      }
+      if (weekCloseTag !== inner[inner.length-1]) {
+        inner.push(weekCloseTag);
+      }
+
+      return open + inner.join('') + close;
     },
     _getTitle: function(formattedTitle, wrap) {
       //we only want the colspan attribute for table header (not if using LIs)

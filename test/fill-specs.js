@@ -237,32 +237,20 @@ test("can get a range of 31 days in month of March wrapped in LI", function() {
   var html = this.plugin._getDaysForRange(start, end);
   ok(html.indexOf('<li class="day"><span>31</span></li>') > -1, "gets 31 days in March in LI");
 });
-// <table>
-//   <thead>
-//     <tr>
-//       <th class="prev">‹</th>
-//       <th colspan="5" class="switch">February 2012</th>
-//       <th class="next">›</th>
-//     </tr>
-//     <tr>
-//       <th class="dow">Su</th>
-//       <th class="dow">Mo</th>
-//       <th class="dow">Tu</th>
-//       <th class="dow">We</th>
-//       <th class="dow">Th</th>
-//       <th class="dow">Fr</th>
-//       <th class="dow">Sa</th>
-//     </tr>
-//   </thead>
-//   <tbody>
-//     <tr>
-//       <td class="day">5</td>
-//       <td class="day">6</td>
-//       <td class="day">7</td>
-//       <td class="day">8</td>
-//       <td class="day">9</td>
-//       <td class="day">10</td>
-//       <td class="day">11</td>
-//     </tr>
-//   </tbody>
-// </table>
+test("can get a range of days by week relative to currently set date", function() {
+  var html = this.plugin.setDate("March 1, 2014");
+  var html = this.plugin.getRange('week');
+  var expectedStart = '<div class="week"><ul class="week"><li class="day"><span>23</span></li>';
+  var expectedEnd = '<span>1</span></li></ul></div>';
+  ok(html.indexOf(expectedStart) === 0, "expected end of range of week's days (START)");
+  ok(html.indexOf(expectedEnd) === html.length-expectedEnd.length, "expected end of range of week's days (END)");
+});
+test("can get a range of days by month relative to currently set date", function() {
+  var html = this.plugin.setDate("March 10, 2014");
+  var html = this.plugin.getRange('month');
+  var expectedStart = '<div class="month"><ul class="week"><li class="day"><span>1</span></li></ul>';
+  var expectedEnd = '<li class="day"><span>31</span></li></ul></div>';
+  ok(html.indexOf(expectedStart) === 0, "expected end of range of month's days (START)");
+  ok(html.indexOf(expectedEnd) === html.length-expectedEnd.length, "expected end of range of month's days (END)");
+});
+
