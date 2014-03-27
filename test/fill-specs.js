@@ -159,6 +159,19 @@ test("can get a specific day and include extra arbitrary content", function() {
   var html = this.plugin._getDay(5, extraContent);
   equal(expected, html, "Gets day with extra content");
 });
+test("can get a range of 2 days to start and end dates", function() {
+  var start = moment('March 10, 2014');
+  var end = moment('March 12, 2014');//want today+tomorrow so set "up to" day after tomorrow :)
+  var html = this.plugin._getDaysForRange(start, end);
+  var expected = '<tr><td class="day"><span>10</span></td><td class="day"><span>11</span></td></tr>';
+  equal(expected, html, "Gets range of 2 days (today+tomorrow)");
+});
+test("can get a range of 31 days in month of March", function() {
+  var start = moment('March 1, 2014');
+  var end = moment('April 1, 2014');//want days in March so set "up to" april 1
+  var html = this.plugin._getDaysForRange(start, end);
+  ok(html.indexOf('<span>31</span>') > -1, "gets 31 days in March");
+});
 test("can get days of week labels", function () {
   var expected = '<tr><th class="dow">Su</th><th class="dow">Mo</th><th class="dow">Tu</th><th class="dow">We</th><th class="dow">Th</th><th class="dow">Fr</th><th class="dow">Sa</th></tr>';
   var html = this.plugin.getDaysOfWeekLabels('daysMin');
@@ -213,10 +226,16 @@ test("can get a specific day as LI and include arbitrary content", function() {
   var html = this.plugin._getDay(5, extraContent);
   equal(expected, html, "Gets day with extra content");
 });
-test("can get months as LIs", function () {
+test("can get months labels as LIs", function () {
   var html = this.plugin.getMonthLabels('monthsShort');
   var expectedStart = '<ul><li class="month">Jan</li><li class="month">Feb</li>';
   ok(html.indexOf(expectedStart) === 0, 'gets months w/expected markup');
+});
+test("can get a range of 31 days in month of March wrapped in LI", function() {
+  var start = moment('March 1, 2014');
+  var end = moment('April 1, 2014');//want days in March so set "up to" april 1
+  var html = this.plugin._getDaysForRange(start, end);
+  ok(html.indexOf('<li class="day"><span>31</span></li>') > -1, "gets 31 days in March in LI");
 });
 // <table>
 //   <thead>

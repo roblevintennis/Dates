@@ -54,7 +54,6 @@
       }
       return date;
     },
-
     _getHeaderWrap: function() {
       return this.useLi ? ['<ul>', '<li>', '</li>', '</ul>'] : ['<tr>', '<th>', '</th>', '</tr>'];
     },
@@ -82,6 +81,16 @@
       var content = '<span>'+dayLabel+'</span>'+extraContent;
       var attrs = ['class', 'day'];
       return this._getTagWithAttr(wrap[1]+wrap[2], attrs, content);
+    },
+    _getDaysForRange: function(startDate, endDate) {
+      var wrap = this._getRowWrap();//<li> or <td>
+      var inner = [];
+      startDate = moment.isMoment(startDate) ? startDate : moment(startDate);
+      endDate   = moment.isMoment(endDate) ? endDate : moment(endDate);
+      for (var m = startDate; m.isBefore(endDate); m.add('days', 1)) {
+        inner.push(this._getDay(m.date()));
+      }
+      return wrap[0] + inner.join('') + wrap[3];
     },
     _getTitle: function(formattedTitle, wrap) {
       //we only want the colspan attribute for table header (not if using LIs)
