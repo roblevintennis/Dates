@@ -47,42 +47,6 @@ test("can set start of week", function() {
   ok(this.plugin.weekStartsOn === 3, 'sets start of week');
   ok(this.plugin.weekEndsOn === 2, 'sets corresponding end of week');
 });
-test("can determine if leap year", function() {
-  var randLeapYears = [2000,2188,2400,2108,2012,2116,2120];
-  for (var i = randLeapYears.length - 1; i >= 0; i--) {
-    var y = randLeapYears[i];
-    ok(this.plugin.isLeapYear(y) == true, 'is leap year');
-  };
-});
-test("can determine if NOT leap year", function() {
-  var normalYears = [1800,1803,1805,1843,1845,1891,1893,1900,2100,2200,2300,2500];
-  for (var i = normalYears.length - 1; i >= 0; i--) {
-    var y = normalYears[i];
-    ok(this.plugin.isLeapYear(y) == false, 'is NOT leap year');
-  };
-});
-test("can get days in month for months other than February", function() {
-  var expected = [31,'pass',31,30,31,30,31,31,30,31,30,31];
-  for (var i = 0; i < 12; i++) {
-    if (i !== 1) { //skip February (has own tests)
-      ok(this.plugin.getNumberOfDaysInMonth(1999, i) === expected[i], "number of days in month");
-    }
-  }
-});
-test("can get days in February when IS a leap year", function() {
-  var leapYears = [2000,2004,2008,2012,2016,2020];
-  var feb = 1;
-  for (var i = 0; i < leapYears.length; i++) {
-    ok(this.plugin.getNumberOfDaysInMonth(leapYears[i], feb) === 28, "days february when leap year");
-  }
-});
-test("can get days in February when not a leap year", function() {
-  var notLeapYears = [2001,2002,2003,2005,1700,1800,1900];
-  var feb = 1;
-  for (var i = 0; i < notLeapYears.length; i++) {
-    ok(this.plugin.getNumberOfDaysInMonth(notLeapYears[i], feb) === 29, "days February when NOT leapyear");
-  }
-});
 test("can get current mode", function() {
   ok(this.plugin.getCurrentMode().mode === "month", "gets default mode (month)");
 });
@@ -253,4 +217,6 @@ test("can get a range of days by month relative to currently set date", function
   ok(html.indexOf(expectedStart) === 0, "expected end of range of month's days (START)");
   ok(html.indexOf(expectedEnd) === html.length-expectedEnd.length, "expected end of range of month's days (END)");
 });
+
+
 

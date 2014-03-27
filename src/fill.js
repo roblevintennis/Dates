@@ -199,20 +199,6 @@
       var open  = this.useLi ? '<div class="header">' : '<thead class="header">';
       var close = this.useLi ? '</div>' : '</thead>';
       return open+ this.getTitle(formatted) + this.getDaysOfWeekLabels(dayTypeKey) +close;
-    },
-
-    isLeapYear: function (yr) { //ref: http://www.timeanddate.com/date/leapyear.html
-      var isLeap = yr % 4 === 0;
-      if (yr % 100 === 0) {
-        isLeap = false;
-        if (yr % 400 === 0) {
-          isLeap = true;
-        }
-      }
-      return isLeap;
-    },
-    getNumberOfDaysInMonth: function(yr, monthIndex) {
-      return [31,(this.isLeapYear(yr) ? 28 : 29),31,30,31,30,31,31,30,31,30,31][monthIndex];
     }
   };
 
