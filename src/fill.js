@@ -96,11 +96,11 @@
       }
       return wrap[0] + inner.join('') + wrap[3];
     },
-    getRange: function(periodType, multiple) {
-      multiple = multiple || 1;
+    getRange: function(periodType, options) {
+      // var multiple = options && options.multiple ? options.multiple : 1;
       var startDate=this.date, endDate=this.date;
       var wrap = this._getRowWrap();//<li> or <td>
-      var inner = [];
+      var inner = [], monthsPerRow;
       var m, d = this.date;
       var open = this.useLi ? '<div>' : '<tbody>';//gets mutated later
       var close = this.useLi ? '</div>' : '</tbody>';
@@ -117,11 +117,10 @@
           endDate = moment(d).add('months', 1).startOf('month');
           break;
         case 'year':
-        ////////////////////////////////////////////////////////////
-        //TODO --- year
-        /////////////////////////////////////////////////////////////
-          open = this.useLi ? '<div class="year">' : '<tbody class="year">';
-          console.log("TODO:Year...")
+          monthsPerRow = options.monthsPerRow || 4;
+          open = this.useLi ? '<div class="year"><div class="month">' : '<tbody class="year"><tr class="months">';
+          startDate = moment(d).startOf('month');
+          endDate = moment(d).add('months', 12).startOf('month');
           break;
         default:
           console.log("Unknown range type.");
@@ -132,6 +131,12 @@
       var weekOpenTag = wrap[0], weekCloseTag = wrap[3];
       weekOpenTag = weekOpenTag.substr(0, weekOpenTag.length-1) + ' class="week">';
       inner.push(weekOpenTag);
+
+      //Determine if the range crosses month boundaries. If so, we'll need to wrap
+      //our range of days in a month div
+      debugger;
+      var isMultiMonthRange = moment(startDate).endOf('month').isBefore(endDate);
+      console.log("isMultiMonthRange: ", isMultiMonthRange);
 
       for (m = startDate; m.isBefore(endDate); m.add('days', 1)) {
         //If first day of week (and not the first time in loop, since we've already

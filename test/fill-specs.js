@@ -217,6 +217,27 @@ test("can get a range of days by month relative to currently set date", function
   ok(html.indexOf(expectedStart) === 0, "expected end of range of month's days (START)");
   ok(html.indexOf(expectedEnd) === html.length-expectedEnd.length, "expected end of range of month's days (END)");
 });
-
-
+///////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+//TODO: I'm thinking we only use `getRange` is a helper to get day ranges (possibly
+//      wrapped in week divs) and a single month. For more complex views that require
+//      things like multi-day events, etc., we'll need to wrap weeks and/or months,
+//      and possibly even use nested tables on the table side.
+//
+//      Probably the next step is to go to experiments and spike out various html
+//      structures to see how they work best. GCalendar uses nested tables :)
+//
+///////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+// test("can get a range of days by year relative to currently set date", function() {
+//   var html = this.plugin.setDate("January 1, 2014");
+//   var html = this.plugin.getRange('year', {monthsPerRow: 3});
+//   var expectedStart = '<div class="year"><div class="month><ul class="week"><li class="day"><span>1</span></li></ul>';
+//   var expectedEnd = '<li class="day"><span>31</span></li></ul></div></div>';
+//   ok(html.indexOf(expectedStart) === 0, "expected end of range of year's days (START)");
+//   ok(html.indexOf(expectedEnd) === html.length-expectedEnd.length, "expected end of range of year's days (END)");
+// });
+// test("do we need tables of tables to achieve multi-day events?", function() {
+//   ok(false, 'TODO: Refactor if we want multi-day events (or whatever other solution come up with)');
+// });
 
