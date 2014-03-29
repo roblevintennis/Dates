@@ -62,12 +62,19 @@
       if (this.useLi) {
         return {
           header: {
+            mainOpen: '<div>',
+            mainClose: '</div>',
             rowOpen: '<ul>',
             rowClose: '</ul>',
             colOpen: '<li>',
             colClose: '</li>'
           },
           body: {
+            mainOpen: '<div>',
+            mainOpenYear: '<div class="year">',
+            mainOpenMonth: '<div class="month">',
+            mainOpenWeek: '<div class="week">',
+            mainClose: '</div>',
             rowOpen: '<ul>',
             rowClose: '</ul>',
             colOpen: '<li>',
@@ -78,12 +85,19 @@
       } else {
         return {
           header: {
+            mainOpen: '<table><thead>',
+            mainClose: '</thead></table>',
             rowOpen: '<tr>',
             rowClose: '</tr>',
             colOpen: '<th>',
             colClose: '</th>'
           },
           body: {
+            mainOpen: '<table><tbody>',
+            mainOpenYear: '<table class="year"><tbody>',
+            mainOpenMonth: '<table class="month"><tbody>',
+            mainOpenWeek: '<table class="week"><tbody>',
+            mainClose: '</tbody></table>',
             rowOpen: '<tr>',
             rowClose: '</tr>',
             colOpen: '<td>',
@@ -126,24 +140,24 @@
       var wrap = this._getTags().body;
       var inner = [], monthsPerRow;
       var m, d = this.date;
-      var open = this.useLi ? '<div>' : '<tbody>';//gets mutated later
-      var close = this.useLi ? '</div>' : '</tbody>';
+      var open = wrap.mainOpen;
+      var close = wrap.mainClose;
 
       switch(periodType) {
         case 'week':
-          open  = this.useLi ? '<div class="week">' : '<tbody class="week">';
+          open = wrap.mainOpenWeek;
           startDate = moment(d).weekday(0);
           endDate = moment(d).weekday(7);
           break;
         case 'month':
-          open  = this.useLi ? '<div class="month">' : '<tbody class="month">';
+          open = wrap.mainOpenMonth;
           startDate = moment(d).startOf('month');
           endDate = moment(d).add('months', 1).startOf('month');
           break;
         case 'year':
           monthsPerRow = options.monthsPerRow || 4;
-          open = this.useLi ? '<div class="year"><div class="month">' : '<tbody class="year"><tr class="months">';
-          startDate = moment(d).startOf('month');
+          open = wrap.mainOpenYear;
+          startDate = moment(d).startOf('year');
           endDate = moment(d).add('months', 12).startOf('month');
           break;
         default:
