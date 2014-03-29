@@ -64,6 +64,8 @@
           header: {
             mainOpen: '<div>',
             mainClose: '</div>',
+            headOpen: '<div class="header">',
+            headClose: '</div>',
             rowOpen: '<ul>',
             rowClose: '</ul>',
             colOpen: '<li>',
@@ -75,6 +77,8 @@
             mainOpenMonth: '<div class="month">',
             mainOpenWeek: '<div class="week">',
             mainClose: '</div>',
+            bodyOpen: '<div class="body">',
+            bodyClose: '</div>',
             rowOpen: '<ul>',
             rowClose: '</ul>',
             colOpen: '<li>',
@@ -85,19 +89,23 @@
       } else {
         return {
           header: {
-            mainOpen: '<table><thead class="header">',
-            mainClose: '</thead></table>',
+            mainOpen: '<table>',
+            mainClose: '</table>',
+            headOpen: '<thead class="header">',
+            headClose: '</thead>',
             rowOpen: '<tr>',
             rowClose: '</tr>',
             colOpen: '<th>',
             colClose: '</th>'
           },
           body: {
-            mainOpen: '<table><tbody>',
-            mainOpenYear: '<table class="year"><tbody>',
-            mainOpenMonth: '<table class="month"><tbody>',
-            mainOpenWeek: '<table class="week"><tbody>',
-            mainClose: '</tbody></table>',
+            mainOpen: '<table>',
+            mainOpenYear: '<table class="year">',
+            mainOpenMonth: '<table class="month">',
+            mainOpenWeek: '<table class="week">',
+            mainClose: '</table>',
+            bodyOpen: '<tbody class="body">',
+            bodyClose: '</tbody>',
             rowOpen: '<tr>',
             rowClose: '</tr>',
             colOpen: '<td>',
@@ -136,12 +144,14 @@
       return wrap.rowOpen + inner.join('') + wrap.rowClose;
     },
     getRange: function(periodType, options) {
+      options = options || {};
       var startDate=this.date, endDate=this.date;
       var wrap = this._getTags().body;
       var inner = [], monthsPerRow;
       var m, d = this.date;
       var open = wrap.mainOpen;
       var close = wrap.mainClose;
+      var includeHeader = options.includeHeader || false;
 
       switch(periodType) {
         case 'week':
@@ -162,6 +172,38 @@
           break;
         default:
           console.log("Unknown range type.");
+      }
+
+      if (includeHeader) {
+
+        // return {
+        //   header: {
+        //     mainOpen: '<table>',
+        //     mainClose: '</table>',
+        //     headOpen: '<thead class="header">',
+        //     headClose: '</thead>',
+        //     rowOpen: '<tr>',
+        //     rowClose: '</tr>',
+        //     colOpen: '<th>',
+        //     colClose: '</th>'
+        //   },
+        //   body: {
+        //     mainOpen: '<table>',
+        //     mainOpenYear: '<table class="year">',
+        //     mainOpenMonth: '<table class="month">',
+        //     mainOpenWeek: '<table class="week">',
+        //     mainClose: '</table>',
+        //     bodyOpen: '<tbody>',
+        //     bodyClose: '</tbody>',
+        //     rowOpen: '<tr>',
+        //     rowClose: '</tr>',
+        //     colOpen: '<td>',
+        //     colClose: '</td>'
+        //If following options props are undefined it will fallback to defaults
+        var headerTags = this._getTags().header;
+        open += headerTags.headOpen + this._getHeaderContent(options.headerLabelFormat, options.dayTypeKey) + headerTags.headClose + wrap.bodyOpen;
+      } else {
+        open += wrap.bodyOpen;
       }
 
       //Push an open tag for week
@@ -196,7 +238,7 @@
         inner.push(weekCloseTag);
       }
 
-      return open + inner.join('') + close;
+      return open + inner.join('') + wrap.bodyClose + close;
     },
     _getTitle: function(formattedTitle, wrap) {
       //we only want the colspan attribute for table header (not if using LIs)

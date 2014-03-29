@@ -146,13 +146,23 @@ test("can get month labels", function () {
   ok(html.indexOf(expectedStart) === 0, 'gets months w/expected markup');
 });
 test("can get a range of days by month relative to currently set date", function() {
-  var html = this.plugin.setDate("March 10, 2014");
+  this.plugin.setDate("March 10, 2014");
   var html = this.plugin.getRange('month');
-  var expectedStart = '<table class="month"><tbody><tr class="week"><td class="day"><span>1</span></td></tr>';
+  var expectedStart = '<table class="month"><tbody class="body"><tr class="week"><td class="day"><span>1</span></td></tr>';
   var expectedEnd = '<span>31</span></td></tr></tbody></table>';
   ok(html.indexOf(expectedStart) === 0, "expected end of range of month's days (START)");
   ok(html.indexOf(expectedEnd) === html.length-expectedEnd.length, "expected end of range of month's days (END)");
 });
+test("can get a range and ask to include header", function() {
+  this.plugin.setDate("March 10, 2014");
+  var html = this.plugin.getRange('month', {includeHeader: true});
+  var expectedStart = '<table class="month"><thead class="header"><tr><th class="prev">‹</th><th colspan="5" class="switch">March 2014</th><th class="next">›</th></tr><tr><th class="dow">Sun</th>';
+  var expectedEnd = '<span>31</span></td></tr></tbody></table>';
+  ok(html.indexOf(expectedStart) === 0, "expected end of range of month's days (START)");
+  ok(html.indexOf(expectedEnd) === html.length-expectedEnd.length, "expected end of range of month's days (END)");
+});
+
+
 //////////////////////////////////////////////////////////////////////
 // BUILD TAGS—LIST ///////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
@@ -199,21 +209,28 @@ test("can get a range of 31 days in month of March wrapped in LI", function() {
   ok(html.indexOf('<li class="day"><span>31</span></li>') > -1, "gets 31 days in March in LI");
 });
 test("can get a range of days by week relative to currently set date LI", function() {
-  var html = this.plugin.setDate("March 1, 2014");
+  this.plugin.setDate("March 1, 2014");
   var html = this.plugin.getRange('week');
-  var expectedStart = '<div class="week"><ul class="week"><li class="day"><span>23</span></li>';
-  var expectedEnd = '<span>1</span></li></ul></div>';
+  var expectedStart = '<div class="week"><div class="body"><ul class="week"><li class="day"><span>23</span></li>';
+  var expectedEnd = '<span>1</span></li></ul></div></div>';
   ok(html.indexOf(expectedStart) === 0, "expected end of range of week's days (START)");
   ok(html.indexOf(expectedEnd) === html.length-expectedEnd.length, "expected end of range of week's days (END)");
 });
 test("can get a range of days by month relative to currently set date LI", function() {
-  var html = this.plugin.setDate("March 10, 2014");
+  this.plugin.setDate("March 10, 2014");
   var html = this.plugin.getRange('month');
-  var expectedStart = '<div class="month"><ul class="week"><li class="day"><span>1</span></li></ul>';
-  var expectedEnd = '<li class="day"><span>31</span></li></ul></div>';
+  var expectedStart = '<div class="month"><div class="body"><ul class="week"><li class="day"><span>1</span></li></ul>';
+  var expectedEnd = '<li class="day"><span>31</span></li></ul></div></div>';
   ok(html.indexOf(expectedStart) === 0, "expected end of range of month's days (START)");
   ok(html.indexOf(expectedEnd) === html.length-expectedEnd.length, "expected end of range of month's days (END)");
 });
+test("can get a range and ask to include header LI", function() {
+  this.plugin.setDate("March 10, 2014");
+  var html = this.plugin.getRange('month', {includeHeader: true});
+  var expectedStart = '<div class="month"><div class="header"><ul><li class="prev">‹</li><li class="switch">March 2014</li><li class="next">›</li></ul><ul><li class="dow">Sun</li>';
+  ok(html.indexOf(expectedStart) === 0, "expected end of range of month's days (START)");
+});
+
 ///////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
 //TODO: I'm thinking we only use `getRange` is a helper to get day ranges (possibly
