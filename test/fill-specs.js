@@ -82,14 +82,9 @@ module('Build Tags—Table', {
   }
 });
 test("can build tags with attributes", function() {
-  var actual = this.plugin._getTagWithAttr('<div></div>', ['id', 'foo', 'class', 'bar']);
-  var expected = '<div id="foo" class="bar"></div>'
+  var actual = this.plugin._getTagWithAttr('<div>', ['id', 'foo', 'class', 'bar']);
+  var expected = '<div id="foo" class="bar">'
   equal(expected, actual, "should build a tag with attributes");
-});
-test("can build tags with attributes and a value", function() {
-  var actual = this.plugin._getTagWithAttr('<div></div>', ['id', 'foo', 'class', 'bar'], "This is my text!");
-  var expected = '<div id="foo" class="bar">This is my text!</div>'
-  equal(expected, actual, "should build a tag with attributes and value");
 });
 test("can get a header that defaults to a thead", function() {
   var html = this.plugin.getHeader();

@@ -64,27 +64,24 @@
     _getRowWrap: function() {
       return this.useLi ? ['<ul>', '<li>', '</li>', '</ul>'] : ['<tr>', '<td>', '</td>', '</tr>'];
     },
-    //tag is like '<tr></tr>' or '<ul></ul>'
+    //tag is like '<tr>' or '<ul>'
     //attrs is an array like ['class', 'foo', 'colspan', '5']
-    //value is optional value to put in between open close tags
-    _getTagWithAttr: function(tag, attrs, value) {
-      value = value || '';
-      var parts = tag.split('><');
+    _getTagWithAttr: function(tag, attrs) {
+      var parts = tag.split('>');
       var unclosedOpenTag = parts[0] +' ';
-      var close = '<' + parts[1];
       var inner = '';
       //add attributes
       for (var i = 0; i < attrs.length; i+=2) {
         inner += attrs[i] + '="' + attrs[i+1] +'" ';
       };
-      return unclosedOpenTag+inner.trim()+'>'+value+close;
+      return unclosedOpenTag+inner.trim()+'>';
     },
     _getDay: function(dayLabel, extraContent) {
       var wrap = this._getRowWrap();//<li> or <td>
       extraContent = extraContent || '';
       var content = '<span>'+dayLabel+'</span>'+extraContent;
       var attrs = ['class', 'day'];
-      return this._getTagWithAttr(wrap[1]+wrap[2], attrs, content);
+      return this._getTagWithAttr(wrap[1], attrs) + content + wrap[2];
     },
     _getDaysForRange: function(startDate, endDate) {
       var wrap = this._getRowWrap();//<li> or <td>
@@ -134,9 +131,9 @@
 
       //Determine if the range crosses month boundaries. If so, we'll need to wrap
       //our range of days in a month div
-      debugger;
-      var isMultiMonthRange = moment(startDate).endOf('month').isBefore(endDate);
-      console.log("isMultiMonthRange: ", isMultiMonthRange);
+      // debugger;
+      // var isMultiMonthRange = moment(startDate).endOf('month').isBefore(endDate);
+      // console.log("isMultiMonthRange: ", isMultiMonthRange);
 
       for (m = startDate; m.isBefore(endDate); m.add('days', 1)) {
         //If first day of week (and not the first time in loop, since we've already
@@ -163,14 +160,14 @@
     _getTitle: function(formattedTitle, wrap) {
       //we only want the colspan attribute for table header (not if using LIs)
       var attrs = this.useLi ? ['class', 'switch'] : ['colspan', '5', 'class', 'switch'];
-      return this._getTagWithAttr(wrap[1]+wrap[2], attrs, formattedTitle);
+      return this._getTagWithAttr(wrap[1], attrs) + formattedTitle + wrap[2];
     },
     getTitle: function(formattedTitle) {
       var wrap = this._getHeaderWrap();
       var html = wrap[0] +
-        this._getTagWithAttr(wrap[1]+wrap[2], ['class', 'prev'], this.prev) +
+        this._getTagWithAttr(wrap[1], ['class', 'prev']) + this.prev + wrap[2] +
         this._getTitle(formattedTitle, wrap) +
-        this._getTagWithAttr(wrap[1]+wrap[2], ['class', 'next'], this.nxt) +
+        this._getTagWithAttr(wrap[1], ['class', 'next']) + this.nxt + wrap[2] +
       wrap[3];
       return html;
     },
@@ -181,7 +178,7 @@
       var days = wrap[0];
       for (var i = 0; i < dayLabels.length; i++) {
         var indice = (i + this.weekStartsOn) % 7;
-        days += this._getTagWithAttr(wrap[1]+wrap[2], ['class', 'dow'], dayLabels[indice]);
+        days += this._getTagWithAttr(wrap[1], ['class', 'dow']) + dayLabels[indice] + wrap[2];
       };
       days += wrap[3];
       return days;
@@ -192,7 +189,7 @@
       var months = this.dateLabels[monthTypeKey];
       var monthLabels= wrap[0];
       for (var i = 0; i < months.length; i++) {
-        monthLabels += this._getTagWithAttr(wrap[1]+wrap[2], ['class', 'month'], months[i]);
+        monthLabels += this._getTagWithAttr(wrap[1], ['class', 'month']) + months[i] + wrap[2];
       };
       monthLabels += wrap[3];
       return monthLabels;
