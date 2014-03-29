@@ -2,16 +2,17 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Experiments  </title>
+  <title>Experiments</title>
   <script src="../vendor/jquery.js"></script>
   <script src="../vendor/moment.js"></script>
   <script src="../lib.js"></script>
 </head>
 <body>
+  <div id="plugin"></div>
+  <div id="test"></div>
 
-<div id="plugin"></div>
-<div id="test"></div>
-<h1>-----------------AFTER JS TESTS------------------</h1>
+
+
 <script type="text/javascript">
   var defaultFormat = "mm-dd-yyyy";
   var pluginEl = $('<div></div>')
@@ -19,123 +20,24 @@
       .datefill({format: this.defaultFormat});
   var plugin = pluginEl.data().datefill;
 
-  //TEST HEADER
-  var html = this.plugin.getHeader();
-  $('#test').html(html);
+  ///////////////////////////////////////////////////
+  // TEST GETTING MONTH BOTH TABLE & LIST
+  ///////////////////////////////////////////////////
+  this.plugin.setDate("March 10, 2014");
+  var html = this.plugin.getRange('month', {includeHeader: true});
+  $('#test').append('<h1>Month as Table:</h1><br><br>' +html);
 
-  //TEST DAY
-  var html = this.plugin._getDay('Tuesday 3/25');
-  $('#test').append('<br>' +html);
-
-  //TEST DAYS OF WEEK
-  var html = this.plugin.getDaysOfWeekLabels('daysMin');
-  $('#test').append('<br>' +html);
-  var html = this.plugin.getDaysOfWeekLabels('daysShort');
-  $('#test').append('<br>' +html);
-  var html = this.plugin.getDaysOfWeekLabels('days');
-  $('#test').append('<br>' +html);
-
-  var start = moment('March 1, 2014');
-  var end = moment('April 1, 2014');//want days in March so set "up to" april 1
-  var html = this.plugin._getDaysForRange(start, end);
-  $('#test').append('<br>' +html);
+  //Now set up for using <li>
+  var pluginEl = $('<div></div>')
+      .appendTo('#plugin')
+      .datefill({useLi: true});
+  var plugin = pluginEl.data().datefill;
+  var html = this.plugin.getRange('month', {includeHeader: true});
+  $('#test').append('<h1>Month as Unordered List:</h1><br><br>' +html);
 
 </script>
 
-<!-- DAYS -->
-<div class="days">
-  <table>
-    <thead>
-      <tr>
-        <th class="prev">‹</th>
-        <th colspan="5" class="switch">February 2012</th>
-        <th class="next">›</th>
-      </tr>
-      <tr>
-        <th class="dow">Su</th>
-        <th class="dow">Mo</th>
-        <th class="dow">Tu</th>
-        <th class="dow">We</th>
-        <th class="dow">Th</th>
-        <th class="dow">Fr</th>
-        <th class="dow">Sa</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="day ">5</td>
-        <td class="day ">6</td>
-        <td class="day ">7</td>
-        <td class="day ">8</td>
-        <td class="day ">9</td>
-        <td class="day ">10</td>
-        <td class="day ">11</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
 
-<!-- MONTHS -->
-<div class="months">
-  <table>
-    <thead>
-      <tr>
-        <th class="prev">‹</th>
-        <th colspan="5" class="switch">2012</th>
-        <th class="next">›</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td colspan="7">
-          <span class="month">Jan</span>
-          <span class="month active">Feb</span>
-          <span class="month">Mar</span>
-          <span class="month">Apr</span>
-          <span class="month">May</span>
-          <span class="month">Jun</span>
-          <span class="month">Jul</span>
-          <span class="month">Aug</span>
-          <span class="month">Sep</span>
-          <span class="month">Oct</span>
-          <span class="month">Nov</span>
-          <span class="month">Dec</span>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-<!-- YEARS -->
-<div class="years">
-  <table>
-    <thead>
-      <tr>
-        <th class="prev">‹</th>
-        <th colspan="5" class="switch">2010-2019</th>
-        <th class="next">›</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td colspan="7">
-          <span class="year old">2009</span>
-          <span class="year">2010</span>
-          <span class="year">2011</span>
-          <span class="year active">2012</span>
-          <span class="year">2013</span>
-          <span class="year">2014</span>
-          <span class="year">2015</span>
-          <span class="year">2016</span>
-          <span class="year">2017</span>
-          <span class="year">2018</span>
-          <span class="year">2019</span>
-          <span class="year old">2020</span>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
 
 </body>
 </html>
