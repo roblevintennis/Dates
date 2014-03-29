@@ -86,18 +86,13 @@ test("can build tags with attributes", function() {
   var expected = '<div id="foo" class="bar">'
   equal(expected, actual, "should build a tag with attributes");
 });
-test("can get a header that defaults to a thead", function() {
-  var html = this.plugin.getHeader();
-  ok(html.substr(0,6) === '<thead');
-  ok(html.substr(-8) === '</thead>');
-});
 test("can get a header with daysMin", function () {
-  var html = this.plugin.getHeader(null, 'daysMin');
+  var html = this.plugin._getHeaderContent(null, 'daysMin');
   var isDaysMin = html.indexOf('>Su<') > -1;
   ok(isDaysMin, "Used daysMin");
 });
 test("can get a header with 'full days' labels", function () {
-  var html = this.plugin.getHeader(null, 'days');
+  var html = this.plugin._getHeaderContent(null, 'days');
   var isDays = html.indexOf('>Sunday<') > -1;
   ok(isDays, "Used days");
 });
@@ -174,10 +169,10 @@ module('Build Tags—LIs', {
     this.plugin = null;
   }
 });
-test("can get a header as UL wrapped in DIV", function() {
-  var html = this.plugin.getHeader();
-  ok(html.substr(0,4) === '<div');
-  ok(html.substr(-6) === '</div>');
+test("can get a header as UL", function() {
+  var html = this.plugin._getHeaderContent();
+  ok(html.substr(0,3) === '<ul');
+  ok(html.substr(-5) === '</ul>');
   var isLIs = html.toLowerCase().indexOf('<li') > -1;
   ok(isLIs, "gets an LI version of the header");
 });

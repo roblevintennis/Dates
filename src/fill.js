@@ -85,7 +85,7 @@
       } else {
         return {
           header: {
-            mainOpen: '<table><thead>',
+            mainOpen: '<table><thead class="header">',
             mainClose: '</thead></table>',
             rowOpen: '<tr>',
             rowClose: '</tr>',
@@ -235,13 +235,11 @@
       monthLabels += wrap.rowClose;
       return monthLabels;
     },
-    getHeader: function(format, dayTypeKey) {
+    _getHeaderContent: function(format, dayTypeKey) {
       //TODO: WE'LL NEED TO UPDATE ALL THIS BASED ON CURRENT MODE E.G. DAY||WEEK||MONTH ETC.
       format = format ? format : 'MMMM YYYY';
       var formatted = moment(this.date).format("MMMM YYYY");
-      var open  = this.useLi ? '<div class="header">' : '<thead class="header">';
-      var close = this.useLi ? '</div>' : '</thead>';
-      return open+ this.getTitle(formatted) + this.getDaysOfWeekLabels(dayTypeKey) +close;
+      return this.getTitle(formatted) + this.getDaysOfWeekLabels(dayTypeKey);
     }
   };
 
