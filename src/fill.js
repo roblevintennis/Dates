@@ -58,14 +58,42 @@
       }
       return date;
     },
-    _getHeaderWrap: function() {
-      return this.useLi ? ['<ul>', '<li>', '</li>', '</ul>'] : ['<tr>', '<th>', '</th>', '</tr>'];
-    },
-    _getRowWrap: function() {
-      return this.useLi ? ['<ul>', '<li>', '</li>', '</ul>'] : ['<tr>', '<td>', '</td>', '</tr>'];
+    _getTags: function() {
+      if (this.useLi) {
+        return {
+          header: {
+            rowOpen: '<ul>',
+            rowClose: '</ul>',
+            colOpen: '<li>',
+            colClose: '</li>'
+          },
+          body: {
+            rowOpen: '<ul>',
+            rowClose: '</ul>',
+            colOpen: '<li>',
+            colClose: '</li>'
+          }
+        };
+
+      } else {
+        return {
+          header: {
+            rowOpen: '<tr>',
+            rowClose: '</tr>',
+            colOpen: '<th>',
+            colClose: '</th>'
+          },
+          body: {
+            rowOpen: '<tr>',
+            rowClose: '</tr>',
+            colOpen: '<td>',
+            colClose: '</td>'
+          }
+        };
+      }
     },
     //tag is like '<tr>' or '<ul>'
-    //attrs is an array like ['class', 'foo', 'colspan', '5']
+    //attrs is an array of key vals for attributes like: ['class', 'foo', 'colspan', '5']
     _getTagWithAttr: function(tag, attrs) {
       var parts = tag.split('>');
       var unclosedOpenTag = parts[0] +' ';
@@ -77,26 +105,25 @@
       return unclosedOpenTag+inner.trim()+'>';
     },
     _getDay: function(dayLabel, extraContent) {
-      var wrap = this._getRowWrap();//<li> or <td>
+      var wrap = this._getTags().body;
       extraContent = extraContent || '';
       var content = '<span>'+dayLabel+'</span>'+extraContent;
       var attrs = ['class', 'day'];
-      return this._getTagWithAttr(wrap[1], attrs) + content + wrap[2];
+      return this._getTagWithAttr(wrap.colOpen, attrs) + content + wrap.colClose;
     },
     _getDaysForRange: function(startDate, endDate) {
-      var wrap = this._getRowWrap();//<li> or <td>
+      var wrap = this._getTags().body;
       var inner = [];
       startDate = moment.isMoment(startDate) ? startDate : moment(startDate);
       endDate   = moment.isMoment(endDate) ? endDate : moment(endDate);
       for (var m = startDate; m.isBefore(endDate); m.add('days', 1)) {
         inner.push(this._getDay(m.date()));
       }
-      return wrap[0] + inner.join('') + wrap[3];
+      return wrap.rowOpen + inner.join('') + wrap.rowClose;
     },
     getRange: function(periodType, options) {
-      // var multiple = options && options.multiple ? options.multiple : 1;
       var startDate=this.date, endDate=this.date;
-      var wrap = this._getRowWrap();//<li> or <td>
+      var wrap = this._getTags().body;
       var inner = [], monthsPerRow;
       var m, d = this.date;
       var open = this.useLi ? '<div>' : '<tbody>';//gets mutated later
@@ -125,7 +152,7 @@
 
       //Push an open tag for week
       var firstTime = true;
-      var weekOpenTag = wrap[0], weekCloseTag = wrap[3];
+      var weekOpenTag = wrap.rowOpen, weekCloseTag = wrap.rowClose;
       weekOpenTag = weekOpenTag.substr(0, weekOpenTag.length-1) + ' class="week">';
       inner.push(weekOpenTag);
 
@@ -160,38 +187,38 @@
     _getTitle: function(formattedTitle, wrap) {
       //we only want the colspan attribute for table header (not if using LIs)
       var attrs = this.useLi ? ['class', 'switch'] : ['colspan', '5', 'class', 'switch'];
-      return this._getTagWithAttr(wrap[1], attrs) + formattedTitle + wrap[2];
+      return this._getTagWithAttr(wrap.colOpen, attrs) + formattedTitle + wrap.colClose;
     },
     getTitle: function(formattedTitle) {
-      var wrap = this._getHeaderWrap();
-      var html = wrap[0] +
-        this._getTagWithAttr(wrap[1], ['class', 'prev']) + this.prev + wrap[2] +
+      var wrap = this._getTags().header;
+      var html = wrap.rowOpen +
+        this._getTagWithAttr(wrap.colOpen, ['class', 'prev']) + this.prev + wrap.colClose +
         this._getTitle(formattedTitle, wrap) +
-        this._getTagWithAttr(wrap[1], ['class', 'next']) + this.nxt + wrap[2] +
-      wrap[3];
+        this._getTagWithAttr(wrap.colOpen, ['class', 'next']) + this.nxt + wrap.colClose +
+      wrap.rowClose;
       return html;
     },
     getDaysOfWeekLabels: function(dayTypeKey) {
-      var wrap = this._getHeaderWrap();
+      var wrap = this._getTags().header;
       dayTypeKey = dayTypeKey ? dayTypeKey : 'daysShort';
       var dayLabels = this.dateLabels[dayTypeKey];
-      var days = wrap[0];
+      var days = wrap.rowOpen;
       for (var i = 0; i < dayLabels.length; i++) {
         var indice = (i + this.weekStartsOn) % 7;
-        days += this._getTagWithAttr(wrap[1], ['class', 'dow']) + dayLabels[indice] + wrap[2];
+        days += this._getTagWithAttr(wrap.colOpen, ['class', 'dow']) + dayLabels[indice] + wrap.colClose;
       };
-      days += wrap[3];
+      days += wrap.rowClose;
       return days;
     },
     getMonthLabels: function(monthTypeKey) {
       monthTypeKey = monthTypeKey ? monthTypeKey : 'monthsShort';
-      var wrap = this._getRowWrap();//<li> or <td>
+      var wrap = this._getTags().body;//<li> or <td>
       var months = this.dateLabels[monthTypeKey];
-      var monthLabels= wrap[0];
+      var monthLabels= wrap.rowOpen;
       for (var i = 0; i < months.length; i++) {
-        monthLabels += this._getTagWithAttr(wrap[1], ['class', 'month']) + months[i] + wrap[2];
+        monthLabels += this._getTagWithAttr(wrap.colOpen, ['class', 'month']) + months[i] + wrap.colClose;
       };
-      monthLabels += wrap[3];
+      monthLabels += wrap.rowClose;
       return monthLabels;
     },
     getHeader: function(format, dayTypeKey) {
