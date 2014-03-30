@@ -74,9 +74,9 @@ var DateFill = require('./fill').DateFill;
           throw new Error("Invalid date string (according to momentjs)");
         }
       } else {
-        this.date = new Date(date);
+        this.date = moment(new Date(date));
       }
-      return date;
+      return this.date;
     },
     _getTags: function() {
       if (this.useLi) {

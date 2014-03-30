@@ -59,10 +59,10 @@ test("can set current mode and returns updated mode", function() {
 });
 test("can set a date", function() {
   var d = new Date();
-  var actual = null;
+  var actualMoment = null;
   this.plugin.setDate(d);
-  actual = this.plugin.getDate();
-  equal(d.getTime(), actual.getTime(), "set date should be same");
+  actualMoment = this.plugin.getDate();
+  equal(d.getTime(), actualMoment.valueOf(), "set date should be same");
 });
 
 //////////////////////////////////////////////////////////////////////
