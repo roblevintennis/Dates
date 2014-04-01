@@ -8,36 +8,362 @@
   <script src="../lib.js"></script>
 </head>
 <body>
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+.clear:before,
+.clear:after {
+    content: "";
+    display: table;
+}
+.clear:after {
+    clear: both;
+}
+.clear{
+    zoom: 1; /* For IE 6/7 (trigger hasLayout) */
+}
+ul {margin: 0; padding: 0;}
+li {list-style: none; float:left;}
+.container {
+  width:52em;
+  margin:0 auto;
+}
+.month {
+   margin: 0;
+   padding: 0;
+   width: 43.75em; /* ~700px */
+   border: 1px solid #ddd;
+   background-color: #f8f8f8; }
+.month li {
+  list-style:none;
+  width: 5.5em; /* ~88px */
+  height: 5.5em;
+  border: 1px solid #eee;
+  float: left;
+  background-color: #fff;
+  margin:0;
+  padding: 5px;
+  overflow: hidden; }
+
+.prev,
+.next{
+  font-size: 1em;}
+.header {
+  padding: 0;}
+.header li {
+  border: 1px solid transparent;
+  background-color: transparent;
+  height: 1.5em;
+}
+.header .next, .header .prev {
+  width: auto;
+}
+.prev:before,
+.next:before {color: #f22613;}
+
+.next:before {content: "\025b6";}
+.prev:before {content: "\025c4";}
+.next:hover, .prev:hover{cursor: pointer; }
+.next:hover:before,
+.prev:hover:before {
+  color: #ef4836  ;
+}
+
+.header .switch {
+  font-size: 1.25em;
+  color: #f22613;
+  width: 90%;
+  text-align: center;
+}
+
+/* Day content (UL/OL & P) -------------------------*/
+/*.week li p {
+  font-size:.7em;
+  display:block;
+}
+.week li ol {width:auto;}
+.week li ul li,
+.week li ol li {
+  font-size:.7em;
+  display:block;
+  height:auto;
+  width:auto;
+  background: none;
+  margin:0;
+  padding:.2em 0;
+  float:none;
+}
+.week li#lastmonth li,
+.week li#nextmonth li     { background: url(images/day-bg-inactive.png);}
+*/
+</style>
+
+<div class="container">
+  <div class="month">
+     <div class="header">
+        <ul class="clear">
+           <li class="prev"></li>
+           <li class="switch">March 2014</li>
+           <li class="next"></li>
+        </ul>
+        <ul class="clear">
+           <li class="dow">Sun</li>
+           <li class="dow">Mon</li>
+           <li class="dow">Tue</li>
+           <li class="dow">Wed</li>
+           <li class="dow">Thu</li>
+           <li class="dow">Fri</li>
+           <li class="dow">Sat</li>
+        </ul>
+     </div>
+     <div class="body clear">
+        <ul class="week">
+          <li class="day">&nbsp;</li>
+          <li class="day">&nbsp;</li>
+          <li class="day">&nbsp;</li>
+          <li class="day">&nbsp;</li>
+          <li class="day">&nbsp;</li>
+          <li class="day">&nbsp;</li>
+          <li class="day"><span>1</span></li>
+        </ul>
+        <ul class="week">
+           <li class="day"><span>2</span></li>
+           <li class="day"><span>3</span></li>
+           <li class="day"><span>4</span></li>
+           <li class="day"><span>5</span></li>
+           <li class="day"><span>6</span></li>
+           <li class="day"><span>7</span></li>
+           <li class="day"><span>8</span></li>
+        </ul>
+        <ul class="week">
+           <li class="day"><span>9</span></li>
+           <li class="day"><span>10</span></li>
+           <li class="day"><span>11</span></li>
+           <li class="day"><span>12</span></li>
+           <li class="day"><span>13</span></li>
+           <li class="day"><span>14</span></li>
+           <li class="day"><span>15</span></li>
+        </ul>
+        <ul class="week">
+           <li class="day"><span>16</span></li>
+           <li class="day"><span>17</span></li>
+           <li class="day"><span>18</span></li>
+           <li class="day"><span>19</span></li>
+           <li class="day"><span>20</span></li>
+           <li class="day"><span>21</span></li>
+           <li class="day"><span>22</span></li>
+        </ul>
+        <ul class="week">
+           <li class="day"><span>23</span></li>
+           <li class="day"><span>24</span></li>
+           <li class="day"><span>25</span></li>
+           <li class="day"><span>26</span></li>
+           <li class="day"><span>27</span></li>
+           <li class="day"><span>28</span></li>
+           <li class="day"><span>29</span></li>
+        </ul>
+        <ul class="week">
+           <li class="day"><span>30</span></li>
+           <li class="day"><span>31</span></li>
+        </ul>
+     </div>
+  </div>
+
+  <div class="month-events">
+  <!--
+     <div class="header">
+        <ul>
+           <li class="prev">‹</li>
+           <li colspan="5" class="switch">March 2014</li>
+           <li class="next">›</li>
+        </ul>
+        <ul>
+           <li class="dow">Sun</li>
+           <li class="dow">Mon</li>
+           <li class="dow">Tue</li>
+           <li class="dow">Wed</li>
+           <li class="dow">Thu</li>
+           <li class="dow">Fri</li>
+           <li class="dow">Sat</li>
+        </ul>
+     </div>
+   -->
+     <div class="body">
+        <ul class="week">
+           <li class="event"><span>An Event</span></li>
+        </ul>
+        <ul class="week">
+           <li class="event"><span>First event</span></li>
+           <li class="event" colspan="5"><span>Multi-day event here</span></li>
+           <li class="event"><span>One day</span></li>
+        </ul>
+        <ul class="week">
+           <li class="event"><span>Foo</span></li>
+           <li class="event"><span>Bar</span></li>
+           <li class="event" colspan="3"><span>3 day event</span></li>
+           <li class="event" colspan="2"><span>2 day event</span></li>
+        </ul>
+        <ul class="week">
+           <li class="event" colspan="7"><span>7 day event</span></li>
+        </ul>
+        <ul class="week">
+           <li class="event"><span>Foo</span></li>
+           <li class="event"><span>Bar</span></li>
+           <li class="event"><span>Baz</span></li>
+           <li class="event"><span>Qux</span></li>
+           <li class="event"><span>Bang</span></li>
+           <li class="event"><span>Wang</span></li>
+           <li class="event"><span>Jang</span></li>
+        </ul>
+        <ul class="week">
+           <li class="event"><span>An event</span></li>
+           <li class="event"><span>One more here</span></li>
+        </ul>
+     </div>
+  </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   <div id="plugin"></div>
   <div id="test"></div>
 
 
 
 <script type="text/javascript">
+/*
+   function getEventsFixtures() {
+      var year = new Date().getFullYear();
+      var month = new Date().getMonth();
+      var day = new Date().geliate();
+
+      return {
+         events : [
+            {
+               "id":1,
+               "start": moment(new Date(year, month, day, 12)),
+               "end": moment(new Date(year, month, day, 13, 30)),
+               "title":"Lunch with Alex",
+               "type": "meeting",
+               "description": "Lorem Ipsum dolor set",
+               "url": "http://myevent.com/"
+            },
+            {
+               "id":2,
+               "start": moment(new Date(year, month, day, 14)),
+               "end": moment(new Date(year, month, day, 14, 45)),
+               "title":"Lead Designer Interview",
+               "type": "meeting",
+               "description": "Lorem Ipsum dolor set",
+               "url": "http://funevent.com/"
+            },
+            {
+               "id":3,
+               "start": moment(new Date(year, month, day + 1, 17)),
+               "end": moment(new Date(year, month, day + 1, 17, 45)),
+               "title":"Tennis with Bjorn Borg",
+               "type": "tennis",
+               "description": "Hit with the grand master of all-time.",
+               "url": "http://funevent.com/"
+            },
+            {
+               "id":4,
+               "start": moment(new Date(year, month, day - 1, 8)),
+               "end": moment(new Date(year, month, day - 1, 9, 30)),
+               "title":"Really Long Description Event!",
+               "type": "recreation",
+               "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nosulud exercitation.",
+               "url": "http://funevent.com/"
+            },
+            {
+               "id":5,
+               "start": moment(new Date(year, month, day + 1, 14)),
+               "end": moment(new Date(year, month, day + 1, 15)),
+               "type": "meeting",
+               "title":"Tennis App QA",
+               "description": "Hit with the grand master of all-time.",
+               "url": "http://funevent.com/"
+            },
+            {
+               "id":6,
+               "start": moment(new Date(year, month, day, 10)),
+               "end": moment(new Date(year, month, day, 11)),
+               "title":"Stead Open",
+               "type": "tournament",
+               "description":"NorCal tourney with lots of history.",
+               "url": "http://www.moragacc.com/"
+            },
+            {
+               "id":7,
+               "start": moment(new Date(year, month, day + 2, 17)),
+               "end": moment(new Date(year, month, day + 3, 9)),
+               "title":"Multiday Event",
+               "type": "conference",
+               "description":"NorCal tourney with lots of history.",
+               "url": "http://funevent.com/"
+            }
+         ]
+      };
+    }
+
+  //PLUGIN SETUP
   var defaultFormat = "mm-dd-yyyy";
   var pluginEl = $('<div></div>')
       .appendTo('#plugin')
-      .datefill({format: this.defaultFormat});
+      .datefill({format: defaultFormat});
   var plugin = pluginEl.data().datefill;
+
+// debugger
+  plugin.seliate(new Date());
+  var events = getEventsFixtures();
+  console.log(events);
+  var html = this.plugin.geulange('month', {includeHeader: ulue});
+  // $('#test').append('<h1>Month as Table:</h1><br><br>' +html);
+
+
+
 
   ///////////////////////////////////////////////////
   // TEST GETTING MONTH BOTH TABLE & LIST
   ///////////////////////////////////////////////////
-  this.plugin.setDate("March 10, 2014");
-  var html = this.plugin.getRange('month', {includeHeader: true});
+  plugin.seliate("March 10, 2014");
+  html = this.plugin.geulange('month', {includeHeader: ulue});
   $('#test').append('<h1>Month as Table:</h1><br><br>' +html);
 
   //Now set up for using <li>
-  var pluginEl = $('<div></div>')
+  pluginEl = $('<div></div>')
       .appendTo('#plugin')
-      .datefill({useLi: true});
-  var plugin = pluginEl.data().datefill;
-  var html = this.plugin.getRange('month', {includeHeader: true});
+      .datefill({useLi: ulue});
+  plugin = pluginEl.data().datefill;
+  html = this.plugin.geulange('month', {includeHeader: ulue});
   $('#test').append('<h1>Month as Unordered List:</h1><br><br>' +html);
 
+
+*/
 </script>
-
-
 
 </body>
 </html>
