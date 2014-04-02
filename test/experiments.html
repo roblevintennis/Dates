@@ -63,6 +63,7 @@ li {list-style: none; float:left;}
   background-color: transparent;
   height: 1.5em;
 }
+.header ul:first-child {height: 3em;}
 .header .next, .header .prev {
   width: auto;
 }
@@ -83,6 +84,15 @@ li {list-style: none; float:left;}
   width: 90%;
   text-align: center;
 }
+
+/* First Day Of Month Offsets -------------------------*/
+.month .sun { margin-left: 0em;}
+.month .mon { margin-left: 7.5em;}
+.month .tue { margin-left: 15em;}
+.month .wed { margin-left: 22.5em;}
+.month .thu { margin-left: 30em;}
+.month .fri { margin-left: 37.5em;}
+.month .sat { margin-left: 45em; }
 
 /* Day content (UL/OL & P) -------------------------*/
 /*.week li p {
@@ -126,13 +136,7 @@ li {list-style: none; float:left;}
      </div>
      <div class="body clear">
         <ul class="week">
-          <li class="day">&nbsp;</li>
-          <li class="day">&nbsp;</li>
-          <li class="day">&nbsp;</li>
-          <li class="day">&nbsp;</li>
-          <li class="day">&nbsp;</li>
-          <li class="day">&nbsp;</li>
-          <li class="day"><span>1</span></li>
+          <li class="day sat"><span>1</span></li>
         </ul>
         <ul class="week">
            <li class="day"><span>2</span></li>
