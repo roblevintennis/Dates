@@ -14,11 +14,12 @@
 
 
 
-
-
-
-
 <style type="text/css">
+* {
+   -moz-box-sizing:    border-box;   /* Firefox 1, probably can drop this */
+   -webkit-box-sizing: border-box;   /* Safari 3-4, also probably droppable */
+    box-sizing:        border-box;   /* Everything else */
+}
 .clear:before,
 .clear:after {
     content: "";
@@ -39,13 +40,12 @@ li {list-style: none; float:left;}
 .month {
    margin: 0;
    padding: 0;
-   width: 43.75em; /* ~700px */
-   border: 1px solid #ddd;
+   width: 52.5em; /* ~840 (120*7) */
    background-color: #f8f8f8; }
 .month li {
   list-style:none;
-  width: 5.5em; /* ~88px */
-  height: 5.5em;
+  width: 7.5em; /* ~120px */
+  height: 7.5em;
   border: 1px solid #eee;
   float: left;
   background-color: #fff;
