@@ -15,11 +15,7 @@
 
 
 <style type="text/css">
-* {
-   -moz-box-sizing:    border-box;   /* Firefox 1, probably can drop this */
-   -webkit-box-sizing: border-box;   /* Safari 3-4, also probably droppable */
-    box-sizing:        border-box;   /* Everything else */
-}
+* {box-sizing: border-box;}
 .clear:before,
 .clear:after {
     content: "";
@@ -51,7 +47,9 @@ li {list-style: none; float:left;}
   background-color: #fff;
   margin:0;
   padding: 5px;
-  overflow: hidden; }
+  /*TODO: Set overflow hidden on the event title's themselves...we can't put here otherwise
+  the multi-day events won't stretch across */
+}
 
 .prev,
 .next{
@@ -61,17 +59,21 @@ li {list-style: none; float:left;}
 .header li {
   border: 1px solid transparent;
   background-color: transparent;
-  height: 1.5em;
+  height: 2em;
 }
 .header ul:first-child {height: 3em;}
 .header .next, .header .prev {
-  width: auto;
+  width: 5%;
+  text-align: center;
 }
 .prev:before,
 .next:before {color: #f22613;}
 
-.next:before {content: "\025b6";}
-.prev:before {content: "\025c4";}
+/* TODO: Amazingly, it seems the corresponding unicode arrows aren't quite symetrical
+the right arrow is "longer" :( */
+.next:before {content: "\025ba";}
+.prev:before {content: "\025c0";}
+
 .next:hover, .prev:hover{cursor: pointer; }
 .next:hover:before,
 .prev:hover:before {
@@ -85,16 +87,63 @@ li {list-style: none; float:left;}
   text-align: center;
 }
 
-/* First Day Of Month Offsets -------------------------*/
-.month .sun { margin-left: 0em;}
-.month .mon { margin-left: 7.5em;}
-.month .tue { margin-left: 15em;}
-.month .wed { margin-left: 22.5em;}
-.month .thu { margin-left: 30em;}
-.month .fri { margin-left: 37.5em;}
-.month .sat { margin-left: 45em; }
+
 
 /* Day content (UL/OL & P) -------------------------*/
+.day, .week {
+  position: relative;
+}
+.events {
+  position: absolute;
+  top: 1.25em;
+  left: .75em;
+  z-index: 1;
+}
+.events span {
+  display: inline-block;
+  margin-bottom: 1px;
+  padding: 3px;
+  border-radius: 3px;
+  font-size: 12px;
+  line-height: 12px;
+  position: absolute;
+}
+/* First Day Of Month Offsets -------------------------*/
+.ec0,.ec1,.ec2,.ec3,.ec4,.ec5,.ec6 {
+  background-color: lightgreen;
+  /* debugging */
+  border: 1px solid red;
+}
+.month .sun { left: 0em;}
+.month .mon{ left: 7.5em;}
+.month .tue{ left: 15em;}
+.month .wed{ left: 22.5em;}
+.month .thu{ left: 30em;}
+.month .fri{ left: 37.5em;}
+.month .sat{ left: 45em; }
+.ec0 { left: 0;}
+.ec1 { left: 10em;}
+.ec2 { left: 20em;}
+.ec3 { left: 30em;}
+.ec4 { left: 40em;}
+.ec5 { left: 50em;}
+.ec6 { left: 60em; }
+.days-1 { width: 9em;}
+.days-2 { width: 19em;}
+.days-3 { width: 29em;}
+.days-4 { width: 39em;}
+.days-5 { width: 49em;}
+.days-6 { width: 59em; }
+.days-7 { width: 69em; }
+/*
+.days-1 { width: 7.25em;}
+.days-2 { width: 14.75em;}
+.days-3 { width: 21.75em;}
+.days-4 { width: 29.75em;}
+.days-5 { width: 37.25em;}
+.days-6 { width: 44.25em; }
+*/
+
 /*.week li p {
   font-size:.7em;
   display:block;
@@ -135,102 +184,73 @@ li {list-style: none; float:left;}
         </ul>
      </div>
      <div class="body clear">
-        <ul class="week">
-          <li class="day sat"><span>1</span></li>
-        </ul>
-        <ul class="week">
-           <li class="day"><span>2</span></li>
-           <li class="day"><span>3</span></li>
-           <li class="day"><span>4</span></li>
-           <li class="day"><span>5</span></li>
-           <li class="day"><span>6</span></li>
-           <li class="day"><span>7</span></li>
-           <li class="day"><span>8</span></li>
-        </ul>
-        <ul class="week">
-           <li class="day"><span>9</span></li>
-           <li class="day"><span>10</span></li>
-           <li class="day"><span>11</span></li>
-           <li class="day"><span>12</span></li>
-           <li class="day"><span>13</span></li>
-           <li class="day"><span>14</span></li>
-           <li class="day"><span>15</span></li>
-        </ul>
-        <ul class="week">
-           <li class="day"><span>16</span></li>
-           <li class="day"><span>17</span></li>
-           <li class="day"><span>18</span></li>
-           <li class="day"><span>19</span></li>
-           <li class="day"><span>20</span></li>
-           <li class="day"><span>21</span></li>
-           <li class="day"><span>22</span></li>
-        </ul>
-        <ul class="week">
-           <li class="day"><span>23</span></li>
-           <li class="day"><span>24</span></li>
-           <li class="day"><span>25</span></li>
-           <li class="day"><span>26</span></li>
-           <li class="day"><span>27</span></li>
-           <li class="day"><span>28</span></li>
-           <li class="day"><span>29</span></li>
-        </ul>
-        <ul class="week">
-           <li class="day"><span>30</span></li>
-           <li class="day"><span>31</span></li>
-        </ul>
-     </div>
-  </div>
 
-  <div class="month-events">
-  <!--
-     <div class="header">
-        <ul>
-           <li class="prev">‹</li>
-           <li colspan="5" class="switch">March 2014</li>
-           <li class="next">›</li>
-        </ul>
-        <ul>
-           <li class="dow">Sun</li>
-           <li class="dow">Mon</li>
-           <li class="dow">Tue</li>
-           <li class="dow">Wed</li>
-           <li class="dow">Thu</li>
-           <li class="dow">Fri</li>
-           <li class="dow">Sat</li>
-        </ul>
-     </div>
-   -->
-     <div class="body">
-        <ul class="week">
-           <li class="event"><span>An Event</span></li>
-        </ul>
-        <ul class="week">
-           <li class="event"><span>First event</span></li>
-           <li class="event" colspan="5"><span>Multi-day event here</span></li>
-           <li class="event"><span>One day</span></li>
-        </ul>
-        <ul class="week">
-           <li class="event"><span>Foo</span></li>
-           <li class="event"><span>Bar</span></li>
-           <li class="event" colspan="3"><span>3 day event</span></li>
-           <li class="event" colspan="2"><span>2 day event</span></li>
-        </ul>
-        <ul class="week">
-           <li class="event" colspan="7"><span>7 day event</span></li>
-        </ul>
-        <ul class="week">
-           <li class="event"><span>Foo</span></li>
-           <li class="event"><span>Bar</span></li>
-           <li class="event"><span>Baz</span></li>
-           <li class="event"><span>Qux</span></li>
-           <li class="event"><span>Bang</span></li>
-           <li class="event"><span>Wang</span></li>
-           <li class="event"><span>Jang</span></li>
-        </ul>
-        <ul class="week">
-           <li class="event"><span>An event</span></li>
-           <li class="event"><span>One more here</span></li>
-        </ul>
+        <div class="week clear">
+          <ul>
+            <li class="day sat"><span>1</span></li>
+          </ul>
+        </div>
+
+        <div class="week clear">
+          <div class="events">
+            <span class="ec0 days-7">My Event</span>
+            <span class="ec3 days-2">My Event</span>
+          </div>
+          <ul>
+            <li class="day"><span>2</span></li>
+            <li class="day"><span>3</span>
+            </li>
+            <li class="day"><span>4</span></li>
+            <li class="day"><span>5</span></li>
+            <li class="day"><span>6</span></li>
+            <li class="day"><span>7</span></li>
+            <li class="day"><span>8</span></li>
+          </ul>
+        </div>
+
+        <div class="week clear">
+          <div class="events">
+            <span class="ec2 days-1">My Event</span>
+            <span class="ec3 days-4">My Event</span>
+          </div>
+          <ul>
+             <li class="day"><span>9</span></li>
+             <li class="day"><span>10</span></li>
+             <li class="day"><span>11</span></li>
+             <li class="day"><span>12</span></li>
+             <li class="day"><span>13</span></li>
+             <li class="day"><span>14</span></li>
+             <li class="day"><span>15</span></li>
+          </ul>
+        </div>
+        <div class="week clear">
+          <ul class="week">
+             <li class="day"><span>16</span></li>
+             <li class="day"><span>17</span></li>
+             <li class="day"><span>18</span></li>
+             <li class="day"><span>19</span></li>
+             <li class="day"><span>20</span></li>
+             <li class="day"><span>21</span></li>
+             <li class="day"><span>22</span></li>
+          </ul>
+        </div>
+        <div class="week clear">
+          <ul class="week">
+             <li class="day"><span>23</span></li>
+             <li class="day"><span>24</span></li>
+             <li class="day"><span>25</span></li>
+             <li class="day"><span>26</span></li>
+             <li class="day"><span>27</span></li>
+             <li class="day"><span>28</span></li>
+             <li class="day"><span>29</span></li>
+          </ul>
+        </div>
+        <div class="week clear">
+          <ul class="week">
+             <li class="day"><span>30</span></li>
+             <li class="day"><span>31</span></li>
+          </ul>
+        </div>
      </div>
   </div>
 
