@@ -8,12 +8,6 @@
   <script src="../lib.js"></script>
 </head>
 <body>
-
-
-
-
-
-
 <style type="text/css">
 * {box-sizing: border-box; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;}
 .clear:before,
@@ -26,6 +20,34 @@
 }
 .clear{
     zoom: 1; /* For IE 6/7 (trigger hasLayout) */
+}
+ul {margin: 0; padding: 0;}
+li {list-style: none; float:left;}
+.container {
+  width:52em;
+  margin:0 auto;
+}
+</style>
+
+
+
+<!-- *************************************************************************
+******************************************************************************
+**** MONTH VIEW PROTOTYPE TEST ***********************************************
+******************************************************************************
+****************************************************************************** -->
+<style type="text/css">
+* {box-sizing: border-box; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;}
+.clear:before,
+.clear:after {
+    content: "";
+    display: table;
+}
+.clear:after {
+    clear: both;
+}
+.clear{
+    zoom: 1; 
 }
 ul {margin: 0; padding: 0;}
 li {list-style: none; float:left;}
@@ -86,9 +108,6 @@ the right arrow is "longer" :( */
   width: 90%;
   text-align: center;
 }
-
-
-
 /* Day content (UL/OL & P) -------------------------*/
 .day, .week {
   position: relative;
@@ -252,10 +271,131 @@ the right arrow is "longer" :( */
 
 
 
-  <div id="plugin"></div>
-  <div id="test"></div>
+<!-- *************************************************************************
+******************************************************************************
+**** WEEK VIEW PROTOTYPE TEST ************************************************
+******************************************************************************
+****************************************************************************** -->
+<br><br><hr><br>
+<style type="text/css">
+.container {
+  background-color: #f8f8f8;
+/*  font-family: Tahoma; font-size: 8pt;*/
+  position: relative;
+  overflow: hidden;
+}
+</style>
+<div class="container">
+    <div class="week-view">
+        <div class="header">
+            <ul class="clear">
+                <li class="prev"></li>
+                <li class="switch">January 3-9</li>
+                <li class="next"></li>
+            </ul>
+            <ul class="clear">
+                <li class="dow">Sun, Jan 3</li>
+                <li class="dow">Mon, Jan 4</li>
+                <li class="dow">Tue, Jan 5</li>
+                <li class="dow">Wed, Jan 6</li>
+                <li class="dow">Thu, Jan 7</li>
+                <li class="dow">Fri, Jan 8</li>
+                <li class="dow">Sat, Jan 9</li>
+            </ul>
+        </div>
+        <div class="dhx_cal_data" style="width: 1198px; height: 318px; left: 0px; top: 81px; cursor: default;">
+            <div class="dhx_scale_holder " style="width: 160px; height: 1056px; left: 51px; top: 0px;">
+                <div event_id="1396713398771" class="dhx_cal_event" style="position:absolute; top:334px; left:1px; width:156px; height:40px;">
+                    <div class="dhx_event_move dhx_header" style=" width:154px;">&nbsp;</div>
+                    <div class="dhx_event_move dhx_title" style="">07:35 - 07:40</div>
+                    <div class="dhx_body" style=" width:146px; height:11px;">Breakfast at Tiffany's</div>
+                    <div class="dhx_event_resize dhx_footer" style=" width:152px;"></div>
+                </div>
+                <div event_id="1396713398772" class="dhx_cal_event" style="position:absolute; top:469px; left:1px; width:156px; height:40px;">
+                    <div class="dhx_event_move dhx_header" style=" width:154px;">&nbsp;</div>
+                    <div class="dhx_event_move dhx_title" style="">10:40 - 10:45</div>
+                    <div class="dhx_body" style=" width:146px; height:11px;">Gym</div>
+                    <div class="dhx_event_resize dhx_footer" style=" width:152px;"></div>
+                </div>
+                <div event_id="1396713398773" class="dhx_cal_event" style="position:absolute; top:587px; left:1px; width:156px; height:40px;">
+                    <div class="dhx_event_move dhx_header" style=" width:154px;">&nbsp;</div>
+                    <div class="dhx_event_move dhx_title" style="">13:20 - 13:25</div>
+                    <div class="dhx_body" style=" width:146px; height:11px;">IKEA Couch shopping</div>
+                    <div class="dhx_event_resize dhx_footer" style=" width:152px;"></div>
+                </div>
+            </div>
+            <div class="dhx_scale_holder " style="width: 160px; height: 1056px; left: 212px; top: 0px;">
+                <div event_id="1396713398774" class="dhx_cal_event" style="position:absolute; top:414px; left:1px; width:156px; height:40px;">
+                    <div class="dhx_event_move dhx_header" style=" width:154px;">&nbsp;</div>
+                    <div class="dhx_event_move dhx_title" style="">09:25 - 09:30</div>
+                    <div class="dhx_body" style=" width:146px; height:11px;">Tuesday Morning Shows</div>
+                    <div class="dhx_event_resize dhx_footer" style=" width:152px;"></div>
+                </div>
+            </div>
+            <div class="dhx_scale_holder " style="width: 160px; height: 1056px; left: 373px; top: 0px;"></div>
+            <div class="dhx_scale_holder " style="width: 160px; height: 1056px; left: 534px; top: 0px;"></div>
+            <div class="dhx_scale_holder " style="width: 161px; height: 1056px; left: 695px; top: 0px;"></div>
+            <div class="dhx_scale_holder " style="width: 161px; height: 1056px; left: 857px; top: 0px;"></div>
+            <div class="dhx_scale_holder " style="width: 161px; height: 1056px; left: 1019px; top: 0px;"></div>
+            <div class="dhx_scale_holder">
+                <div class="dhx_scale_hour" style="height: 43px; width: 50px;">00:00</div>
+                <div class="dhx_scale_hour" style="height: 43px; width: 50px;">01:00</div>
+                <div class="dhx_scale_hour" style="height: 43px; width: 50px;">02:00</div>
+                <div class="dhx_scale_hour" style="height: 43px; width: 50px;">03:00</div>
+                <div class="dhx_scale_hour" style="height: 43px; width: 50px;">04:00</div>
+                <div class="dhx_scale_hour" style="height: 43px; width: 50px;">05:00</div>
+                <div class="dhx_scale_hour" style="height: 43px; width: 50px;">06:00</div>
+                <div class="dhx_scale_hour" style="height: 43px; width: 50px;">07:00</div>
+                <div class="dhx_scale_hour" style="height: 43px; width: 50px;">08:00</div>
+                <div class="dhx_scale_hour" style="height: 43px; width: 50px;">09:00</div>
+                <div class="dhx_scale_hour" style="height: 43px; width: 50px;">10:00</div>
+                <div class="dhx_scale_hour" style="height: 43px; width: 50px;">11:00</div>
+                <div class="dhx_scale_hour" style="height: 43px; width: 50px;">12:00</div>
+                <div class="dhx_scale_hour" style="height: 43px; width: 50px;">13:00</div>
+                <div class="dhx_scale_hour" style="height: 43px; width: 50px;">14:00</div>
+                <div class="dhx_scale_hour" style="height: 43px; width: 50px;">15:00</div>
+                <div class="dhx_scale_hour" style="height: 43px; width: 50px;">16:00</div>
+                <div class="dhx_scale_hour" style="height: 43px; width: 50px;">17:00</div>
+                <div class="dhx_scale_hour" style="height: 43px; width: 50px;">18:00</div>
+                <div class="dhx_scale_hour" style="height: 43px; width: 50px;">19:00</div>
+                <div class="dhx_scale_hour" style="height: 43px; width: 50px;">20:00</div>
+                <div class="dhx_scale_hour" style="height: 43px; width: 50px;">21:00</div>
+                <div class="dhx_scale_hour" style="height: 43px; width: 50px;">22:00</div>
+                <div class="dhx_scale_hour" style="height: 43px; width: 50px;">23:00</div>
+            </div>
+            <div event_id="1396713398774" class="dhx_cal_event dhx_cal_select_menu" style="position:absolute; top:414px; left:189px; width:21px; height:84px;">
+                <div class="dhx_event_move dhx_header" style=" width:19px;">&nbsp;</div>
+                <div class="dhx_event_move dhx_title" style="">
+                    <div style="" class="dhx_menu_head"></div>
+                </div>
+                <div class="dhx_body" style=" width:11px; height:55px;">
+                    <div class="dhx_menu_icon icon_details" style="" title="Details"></div>
+                    <div class="dhx_menu_icon icon_edit" style="" title="Edit"></div>
+                    <div class="dhx_menu_icon icon_delete" style="" title="Delete"></div>
+                </div>
+                <div class="dhx_resize_denied dhx_event_resize dhx_footer" style=" width:17px; margin-top:-1px;"></div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
+
+
+
+
+
+
+
+
+
+<!-- *************************************************************************
+******************************************************************************
+**** PLUGIN TESTS ************************************************************
+******************************************************************************
+****************************************************************************** -->
+<div id="plugin"></div>
+<div id="test"></div>
 
 <script type="text/javascript">
 /*
