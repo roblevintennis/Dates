@@ -24,7 +24,7 @@
     clear: both;
 }
 .clear{
-    zoom: 1; 
+    zoom: 1;
 }
 ul {margin: 0; padding: 0;}
 li {list-style: none; float:left;}
@@ -262,6 +262,9 @@ the right arrow is "longer" :( */
   position: relative;
   margin: 0 auto;
   overflow: hidden;
+
+
+
 }
 .week-view .header li {
   border: 1px solid transparent;
@@ -270,7 +273,10 @@ the right arrow is "longer" :( */
 }
 .week-view {
   width: 80em; /* ~1400 (200*7) */
-  background-color: #fff; 
+  height: 40em;
+  background-color: #fff;
+  position: relative;
+  /*overflow: hidden;*/
 }
 .week-view li {
   list-style:none;
@@ -285,8 +291,33 @@ the right arrow is "longer" :( */
   the multi-day events won't stretch across */
 }
 
+.week-view .body {
+  -webkit-tap-highlight-color: transparent;
+  /*border-top: 1px dotted #8894A3;*/
+  position: absolute;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid red;
+  width: 80em;
+  height: 318px;
+  left: 0px;
+  top: 5em;
+  cursor: default;
+}
 </style>
-<div class="week-container">
+
+
+
+
+<!--      <div class="body clear">
+        <div class="week clear">
+          <ul>
+            <li class="day sat"><span>1</span></li>
+          </ul>
+        </div>
+ -->
+ <div class="week-container">
     <div class="week-view">
         <div class="header">
             <ul class="clear">
@@ -304,7 +335,7 @@ the right arrow is "longer" :( */
                 <li class="dow">Sat, Jan 9</li>
             </ul>
         </div>
-        <div class="dhx_cal_data" style="width: 1198px; height: 318px; left: 0px; top: 81px; cursor: default;">
+        <div class="body">
             <div class="dhx_scale_holder " style="width: 160px; height: 1056px; left: 51px; top: 0px;">
                 <div event_id="1396713398771" class="dhx_cal_event" style="position:absolute; top:334px; left:1px; width:156px; height:40px;">
                     <div class="dhx_event_move dhx_header" style=" width:154px;">&nbsp;</div>
