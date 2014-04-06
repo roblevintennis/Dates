@@ -9,34 +9,11 @@
 </head>
 <body>
 <style type="text/css">
-* {box-sizing: border-box; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;}
-.clear:before,
-.clear:after {
-    content: "";
-    display: table;
-}
-.clear:after {
-    clear: both;
-}
-.clear{
-    zoom: 1; /* For IE 6/7 (trigger hasLayout) */
-}
-ul {margin: 0; padding: 0;}
-li {list-style: none; float:left;}
-.container {
-  width:52em;
-  margin:0 auto;
-}
-</style>
-
-
-
-<!-- *************************************************************************
+/*****************************************************************************
 ******************************************************************************
 **** MONTH VIEW PROTOTYPE TEST ***********************************************
 ******************************************************************************
-****************************************************************************** -->
-<style type="text/css">
+******************************************************************************/
 * {box-sizing: border-box; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;}
 .clear:before,
 .clear:after {
@@ -55,12 +32,12 @@ li {list-style: none; float:left;}
   width:52em;
   margin:0 auto;
 }
-.month {
+.month, .week-view {
    margin: 0;
    padding: 0;
    width: 52.5em; /* ~840 (120*7) */
    background-color: #f8f8f8; }
-.month li {
+.month li, .week-view li {
   list-style:none;
   width: 7.5em; /* ~120px */
   height: 7.5em;
@@ -78,7 +55,7 @@ li {list-style: none; float:left;}
   font-size: 1em;}
 .header {
   padding: 0;}
-.header li {
+.month .header li {
   border: 1px solid transparent;
   background-color: transparent;
   height: 2em;
@@ -278,14 +255,38 @@ the right arrow is "longer" :( */
 ****************************************************************************** -->
 <br><br><hr><br>
 <style type="text/css">
-.container {
-  background-color: #f8f8f8;
+.week-container {
+  width: 80em;
+  background-color: #fff;
 /*  font-family: Tahoma; font-size: 8pt;*/
   position: relative;
+  margin: 0 auto;
   overflow: hidden;
 }
+.week-view .header li {
+  border: 1px solid transparent;
+  background-color: transparent;
+  height: 2em;
+}
+.week-view {
+  width: 80em; /* ~1400 (200*7) */
+  background-color: #fff; 
+}
+.week-view li {
+  list-style:none;
+  width: 11.42857142857143em; /* ~ (1280/7) / 16 */
+  /*height: 12.5em;*/
+  border: 1px solid #eee;
+  float: left;
+  background-color: #fff;
+  margin:0;
+  padding: 5px;
+  /*TODO: Set overflow hidden on the event title's themselves...we can't put here otherwise
+  the multi-day events won't stretch across */
+}
+
 </style>
-<div class="container">
+<div class="week-container">
     <div class="week-view">
         <div class="header">
             <ul class="clear">
