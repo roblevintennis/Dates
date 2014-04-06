@@ -266,11 +266,15 @@ the right arrow is "longer" :( */
 
 
 }
+.week-view .header ul {
+  margin-left: 3.1em;
+}
 .week-view .header li {
   border: 1px solid transparent;
   background-color: transparent;
   height: 2em;
 }
+
 .week-view {
   width: 80em; /* ~1400 (200*7) */
   height: 40em;
@@ -282,7 +286,7 @@ the right arrow is "longer" :( */
   list-style:none;
   width: 11.42857142857143em; /* ~ (1280/7) / 16 */
   /*height: 12.5em;*/
-  border: 1px solid #eee;
+  border: 1px solid #ddd;
   float: left;
   background-color: #fff;
   margin:0;
@@ -291,6 +295,14 @@ the right arrow is "longer" :( */
   the multi-day events won't stretch across */
 }
 
+
+
+.week-view .header .dow {
+  text-align: center;
+  width: 10.9375em; /* ~175 */
+}
+
+
 .week-view .body {
   -webkit-tap-highlight-color: transparent;
   /*border-top: 1px dotted #8894A3;*/
@@ -298,13 +310,31 @@ the right arrow is "longer" :( */
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
-  border: 1px solid red;
+  border: 1px solid #ddd;
   width: 80em;
   height: 318px;
   left: 0px;
   top: 5em;
   cursor: default;
 }
+
+.times {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 2.5em;
+}
+.times .hour {
+  font-size: .75em;
+  line-height:3em;
+  width: 50px;
+  padding: 1px 0 0;
+  border-bottom: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  text-align: center;
+  vertical-align: top;
+}
+
 </style>
 
 
@@ -369,31 +399,31 @@ the right arrow is "longer" :( */
             <div class="dhx_scale_holder " style="width: 161px; height: 1056px; left: 695px; top: 0px;"></div>
             <div class="dhx_scale_holder " style="width: 161px; height: 1056px; left: 857px; top: 0px;"></div>
             <div class="dhx_scale_holder " style="width: 161px; height: 1056px; left: 1019px; top: 0px;"></div>
-            <div class="dhx_scale_holder">
-                <div class="dhx_scale_hour" style="height: 43px; width: 50px;">00:00</div>
-                <div class="dhx_scale_hour" style="height: 43px; width: 50px;">01:00</div>
-                <div class="dhx_scale_hour" style="height: 43px; width: 50px;">02:00</div>
-                <div class="dhx_scale_hour" style="height: 43px; width: 50px;">03:00</div>
-                <div class="dhx_scale_hour" style="height: 43px; width: 50px;">04:00</div>
-                <div class="dhx_scale_hour" style="height: 43px; width: 50px;">05:00</div>
-                <div class="dhx_scale_hour" style="height: 43px; width: 50px;">06:00</div>
-                <div class="dhx_scale_hour" style="height: 43px; width: 50px;">07:00</div>
-                <div class="dhx_scale_hour" style="height: 43px; width: 50px;">08:00</div>
-                <div class="dhx_scale_hour" style="height: 43px; width: 50px;">09:00</div>
-                <div class="dhx_scale_hour" style="height: 43px; width: 50px;">10:00</div>
-                <div class="dhx_scale_hour" style="height: 43px; width: 50px;">11:00</div>
-                <div class="dhx_scale_hour" style="height: 43px; width: 50px;">12:00</div>
-                <div class="dhx_scale_hour" style="height: 43px; width: 50px;">13:00</div>
-                <div class="dhx_scale_hour" style="height: 43px; width: 50px;">14:00</div>
-                <div class="dhx_scale_hour" style="height: 43px; width: 50px;">15:00</div>
-                <div class="dhx_scale_hour" style="height: 43px; width: 50px;">16:00</div>
-                <div class="dhx_scale_hour" style="height: 43px; width: 50px;">17:00</div>
-                <div class="dhx_scale_hour" style="height: 43px; width: 50px;">18:00</div>
-                <div class="dhx_scale_hour" style="height: 43px; width: 50px;">19:00</div>
-                <div class="dhx_scale_hour" style="height: 43px; width: 50px;">20:00</div>
-                <div class="dhx_scale_hour" style="height: 43px; width: 50px;">21:00</div>
-                <div class="dhx_scale_hour" style="height: 43px; width: 50px;">22:00</div>
-                <div class="dhx_scale_hour" style="height: 43px; width: 50px;">23:00</div>
+            <div class="times">
+                <div class="hour">12am</div>
+                <div class="hour">1am</div>
+                <div class="hour">2am</div>
+                <div class="hour">3am</div>
+                <div class="hour">4am</div>
+                <div class="hour">5am</div>
+                <div class="hour">6am</div>
+                <div class="hour">7am</div>
+                <div class="hour">8am</div>
+                <div class="hour">9am</div>
+                <div class="hour">10am</div>
+                <div class="hour">11am</div>
+                <div class="hour">12pm</div>
+                <div class="hour">1pm</div>
+                <div class="hour">2pm</div>
+                <div class="hour">3pm</div>
+                <div class="hour">4pm</div>
+                <div class="hour">5pm</div>
+                <div class="hour">6pm</div>
+                <div class="hour">7pm</div>
+                <div class="hour">8pm</div>
+                <div class="hour">9pm</div>
+                <div class="hour">10pm</div>
+                <div class="hour">11pm</div>
             </div>
             <div event_id="1396713398774" class="dhx_cal_event dhx_cal_select_menu" style="position:absolute; top:414px; left:189px; width:21px; height:84px;">
                 <div class="dhx_event_move dhx_header" style=" width:19px;">&nbsp;</div>
