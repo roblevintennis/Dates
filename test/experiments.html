@@ -262,9 +262,6 @@ the right arrow is "longer" :( */
   position: relative;
   margin: 0 auto;
   overflow: hidden;
-
-
-
 }
 .week-view .header ul {
   margin-left: 3.1em;
@@ -294,16 +291,10 @@ the right arrow is "longer" :( */
   /*TODO: Set overflow hidden on the event title's themselves...we can't put here otherwise
   the multi-day events won't stretch across */
 }
-
-
-
 .week-view .header .dow {
   text-align: center;
   width: 10.9375em; /* ~175 */
 }
-
-
-
 .week-view .body {
   -webkit-tap-highlight-color: transparent;
   /*border-top: 1px dotted #8894A3;*/
@@ -313,20 +304,19 @@ the right arrow is "longer" :( */
   -webkit-overflow-scrolling: touch;
   border: 1px solid #ddd;
   width: 83.2em;
-  height: 318px;
+  height: 20em;
   left: 0px;
-  top: 5em;
+  top: 1em;
   cursor: default;
 }
 .week-view .body li {
   position: relative;
+  height: 57em;
 }
 .week-view .body .first-day {
   /*TODO: relative*/
   margin-left: 49px;
 }
-
-
 .times {
   position: absolute;
   top: 0;
@@ -343,19 +333,8 @@ the right arrow is "longer" :( */
   text-align: center;
   vertical-align: top;
 }
-
 </style>
 
-
-
-
-<!--      <div class="body clear">
-        <div class="week clear">
-          <ul>
-            <li class="day sat"><span>1</span></li>
-          </ul>
-        </div>
- -->
  <div class="week-container">
     <div class="week-view">
         <div class="header">
@@ -375,6 +354,32 @@ the right arrow is "longer" :( */
             </ul>
         </div>
         <div class="body">
+          <div class="times">
+              <div class="hour">12am</div>
+              <div class="hour">1am</div>
+              <div class="hour">2am</div>
+              <div class="hour">3am</div>
+              <div class="hour">4am</div>
+              <div class="hour">5am</div>
+              <div class="hour">6am</div>
+              <div class="hour">7am</div>
+              <div class="hour">8am</div>
+              <div class="hour">9am</div>
+              <div class="hour">10am</div>
+              <div class="hour">11am</div>
+              <div class="hour">12pm</div>
+              <div class="hour">1pm</div>
+              <div class="hour">2pm</div>
+              <div class="hour">3pm</div>
+              <div class="hour">4pm</div>
+              <div class="hour">5pm</div>
+              <div class="hour">6pm</div>
+              <div class="hour">7pm</div>
+              <div class="hour">8pm</div>
+              <div class="hour">9pm</div>
+              <div class="hour">10pm</div>
+              <div class="hour">11pm</div>
+          </div>
           <ul>
             <li class="first-day">
                 <div event_id="1396713398771" class="dhx_cal_event" style="position:absolute; top:334px; left:1px; width:156px; height:40px;">
@@ -410,44 +415,6 @@ the right arrow is "longer" :( */
             <li></li>
             <li></li>
           </ul>
-            <div class="times">
-                <div class="hour">12am</div>
-                <div class="hour">1am</div>
-                <div class="hour">2am</div>
-                <div class="hour">3am</div>
-                <div class="hour">4am</div>
-                <div class="hour">5am</div>
-                <div class="hour">6am</div>
-                <div class="hour">7am</div>
-                <div class="hour">8am</div>
-                <div class="hour">9am</div>
-                <div class="hour">10am</div>
-                <div class="hour">11am</div>
-                <div class="hour">12pm</div>
-                <div class="hour">1pm</div>
-                <div class="hour">2pm</div>
-                <div class="hour">3pm</div>
-                <div class="hour">4pm</div>
-                <div class="hour">5pm</div>
-                <div class="hour">6pm</div>
-                <div class="hour">7pm</div>
-                <div class="hour">8pm</div>
-                <div class="hour">9pm</div>
-                <div class="hour">10pm</div>
-                <div class="hour">11pm</div>
-            </div>
-            <div event_id="1396713398774" class="dhx_cal_event dhx_cal_select_menu" style="position:absolute; top:414px; left:189px; width:21px; height:84px;">
-                <div class="dhx_event_move dhx_header" style=" width:19px;">&nbsp;</div>
-                <div class="dhx_event_move dhx_title" style="">
-                    <div style="" class="dhx_menu_head"></div>
-                </div>
-                <div class="dhx_body" style=" width:11px; height:55px;">
-                    <div class="dhx_menu_icon icon_details" style="" title="Details"></div>
-                    <div class="dhx_menu_icon icon_edit" style="" title="Edit"></div>
-                    <div class="dhx_menu_icon icon_delete" style="" title="Delete"></div>
-                </div>
-                <div class="dhx_resize_denied dhx_event_resize dhx_footer" style=" width:17px; margin-top:-1px;"></div>
-            </div>
         </div>
     </div>
 </div>
