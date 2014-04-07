@@ -263,7 +263,7 @@ the right arrow is "longer" :( */
   margin: 0 auto;
   overflow: hidden;
 }
-.week-view .header ul {
+.week-view .header .dow-lbls {
   margin-left: 3.1em;
 }
 .week-view .header li {
@@ -293,7 +293,8 @@ the right arrow is "longer" :( */
 }
 .week-view .header .dow {
   text-align: center;
-  width: 10.9375em; /* ~175 */
+  /*width: 11.4em;*/
+  width: 183px;
 }
 .week-view .body {
   -webkit-tap-highlight-color: transparent;
@@ -304,9 +305,9 @@ the right arrow is "longer" :( */
   -webkit-overflow-scrolling: touch;
   border: 1px solid #ddd;
   width: 83.2em;
-  height: 20em;
+  height: 30em;
   left: 0px;
-  top: 1em;
+  /*top: 1em;*/
   cursor: default;
 }
 .week-view .body li {
@@ -332,6 +333,21 @@ the right arrow is "longer" :( */
   border-right: 1px solid #ddd;
   text-align: center;
   vertical-align: top;
+  background-color: #fafafa;  
+}
+.time-slots div {
+  width: 1280px;
+  height: 19px;
+  background: transparent;
+  position: absolute;
+  top: 0;
+  left: 49px;
+  border-bottom: 1px solid #f7f7f7;
+  z-index: 1;
+}
+
+.time-slots div:nth-child(even) {
+  border-bottom: 1px solid #ddd;
 }
 </style>
 
@@ -343,7 +359,7 @@ the right arrow is "longer" :( */
                 <li class="switch">January 3-9</li>
                 <li class="next"></li>
             </ul>
-            <ul class="clear">
+            <ul class="dow-lbls clear">
                 <li class="dow">Sun, Jan 3</li>
                 <li class="dow">Mon, Jan 4</li>
                 <li class="dow">Tue, Jan 5</li>
@@ -379,6 +395,56 @@ the right arrow is "longer" :( */
               <div class="hour">9pm</div>
               <div class="hour">10pm</div>
               <div class="hour">11pm</div>
+          </div>
+          <div class="time-slots">
+              <div style="top: 0"></div>
+              <div style="top: 19px"></div>
+              <div style="top: 38px"></div>
+              <div style="top: 57px"></div>
+              <div style="top: 76px"></div>
+              <div style="top: 95px"></div>
+              <div style="top: 114px"></div>
+              <div style="top: 133px"></div>
+              <div style="top: 152px"></div>
+              <div style="top: 171px"></div>
+              <div style="top: 190px"></div>
+              <div style="top: 209px"></div>
+              <div style="top: 228px"></div>
+              <div style="top: 247px"></div>
+              <div style="top: 266px"></div>
+              <div style="top: 285px"></div>
+              <div style="top: 304px"></div>
+              <div style="top: 323px"></div>
+              <div style="top: 342px"></div>
+              <div style="top: 361px"></div>
+              <div style="top: 380px"></div>
+              <div style="top: 399px"></div>
+              <div style="top: 418px"></div>
+              <div style="top: 437px"></div>
+              <div style="top: 456px"></div>
+              <div style="top: 475px"></div>
+              <div style="top: 494px"></div>
+              <div style="top: 513px"></div>
+              <div style="top: 532px"></div>
+              <div style="top: 551px"></div>
+              <div style="top: 570px"></div>
+              <div style="top: 589px"></div>
+              <div style="top: 608px"></div>
+              <div style="top: 627px"></div>
+              <div style="top: 646px"></div>
+              <div style="top: 665px"></div>
+              <div style="top: 684px"></div>
+              <div style="top: 703px"></div>
+              <div style="top: 722px"></div>
+              <div style="top: 741px"></div>
+              <div style="top: 760px"></div>
+              <div style="top: 779px"></div>
+              <div style="top: 798px"></div>
+              <div style="top: 817px"></div>
+              <div style="top: 836px"></div>
+              <div style="top: 855px"></div>
+              <div style="top: 874px"></div>
+              <div style="top: 893px"></div>
           </div>
           <ul>
             <li class="first-day">
