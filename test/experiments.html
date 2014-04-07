@@ -256,7 +256,7 @@ the right arrow is "longer" :( */
 <br><br><hr><br>
 <style type="text/css">
 .week-container {
-  width: 80em;
+  width: 85em;
   background-color: #fff;
 /*  font-family: Tahoma; font-size: 8pt;*/
   position: relative;
@@ -276,7 +276,7 @@ the right arrow is "longer" :( */
 }
 
 .week-view {
-  width: 80em; /* ~1400 (200*7) */
+  width: 84em;
   height: 40em;
   background-color: #fff;
   position: relative;
@@ -286,7 +286,7 @@ the right arrow is "longer" :( */
   list-style:none;
   width: 11.42857142857143em; /* ~ (1280/7) / 16 */
   /*height: 12.5em;*/
-  border: 1px solid #ddd;
+  /*border: 1px solid #ddd;*/
   float: left;
   background-color: #fff;
   margin:0;
@@ -303,20 +303,29 @@ the right arrow is "longer" :( */
 }
 
 
+
 .week-view .body {
   -webkit-tap-highlight-color: transparent;
   /*border-top: 1px dotted #8894A3;*/
-  position: absolute;
+  position: relative;
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
   border: 1px solid #ddd;
-  width: 80em;
+  width: 83.2em;
   height: 318px;
   left: 0px;
   top: 5em;
   cursor: default;
 }
+.week-view .body li {
+  position: relative;
+}
+.week-view .body .first-day {
+  /*TODO: relative*/
+  margin-left: 49px;
+}
+
 
 .times {
   position: absolute;
@@ -366,7 +375,8 @@ the right arrow is "longer" :( */
             </ul>
         </div>
         <div class="body">
-            <div class="dhx_scale_holder " style="width: 160px; height: 1056px; left: 51px; top: 0px;">
+          <ul>
+            <li class="first-day">
                 <div event_id="1396713398771" class="dhx_cal_event" style="position:absolute; top:334px; left:1px; width:156px; height:40px;">
                     <div class="dhx_event_move dhx_header" style=" width:154px;">&nbsp;</div>
                     <div class="dhx_event_move dhx_title" style="">07:35 - 07:40</div>
@@ -385,20 +395,21 @@ the right arrow is "longer" :( */
                     <div class="dhx_body" style=" width:146px; height:11px;">IKEA Couch shopping</div>
                     <div class="dhx_event_resize dhx_footer" style=" width:152px;"></div>
                 </div>
-            </div>
-            <div class="dhx_scale_holder " style="width: 160px; height: 1056px; left: 212px; top: 0px;">
+            </li>
+            <li>
                 <div event_id="1396713398774" class="dhx_cal_event" style="position:absolute; top:414px; left:1px; width:156px; height:40px;">
                     <div class="dhx_event_move dhx_header" style=" width:154px;">&nbsp;</div>
                     <div class="dhx_event_move dhx_title" style="">09:25 - 09:30</div>
                     <div class="dhx_body" style=" width:146px; height:11px;">Tuesday Morning Shows</div>
                     <div class="dhx_event_resize dhx_footer" style=" width:152px;"></div>
                 </div>
-            </div>
-            <div class="dhx_scale_holder " style="width: 160px; height: 1056px; left: 373px; top: 0px;"></div>
-            <div class="dhx_scale_holder " style="width: 160px; height: 1056px; left: 534px; top: 0px;"></div>
-            <div class="dhx_scale_holder " style="width: 161px; height: 1056px; left: 695px; top: 0px;"></div>
-            <div class="dhx_scale_holder " style="width: 161px; height: 1056px; left: 857px; top: 0px;"></div>
-            <div class="dhx_scale_holder " style="width: 161px; height: 1056px; left: 1019px; top: 0px;"></div>
+            </li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
             <div class="times">
                 <div class="hour">12am</div>
                 <div class="hour">1am</div>
